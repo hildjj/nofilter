@@ -2,6 +2,7 @@ gulp = require 'gulp'
 codo = require 'gulp-codo'
 coffee = require 'gulp-coffee'
 coffeelint = require 'gulp-coffeelint'
+coveralls = require 'gulp-coveralls'
 del = require 'del'
 gls = require 'gulp-live-server'
 gutil = require 'gulp-util'
@@ -74,6 +75,10 @@ gulp.task 'clean', () ->
 gulp.task 'prepublish', ['clean'], (cb) ->
   gulp.start 'coffee', cb
 
-gulp.task 'ci', ['coverage']
+gulp.task 'coveralls', ['coverage'], ->
+  gulp.src 'coverage/lcov.info'
+  .pipe coveralls()
+
+gulp.task 'ci', ['coveralls']
 
 gulp.task 'default', ['test']
