@@ -27,3 +27,5 @@ var NoFilter = require('nofilter');
 nf = new NoFilter('010203', 'hex');
 nf.pipe(process.stdout);
 ```
+
+Read the [API Docs](http://hildjj.github.io/nofilter/).
