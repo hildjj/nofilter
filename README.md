@@ -8,6 +8,7 @@ features, test coverage, etc.
 
 # Examples
 
+As a data sink:
 ```javascript
 var NoFilter = require('nofilter');
 nf = new NoFilter();
@@ -15,4 +16,11 @@ nf.on('finish', function() {
   console.log(nf.toString('base64'));
 });
 process.stdin.pipe(nf);
+```
+
+As a data source:
+```javascript
+var NoFilter = require('nofilter');
+nf = new NoFilter('010203', 'hex');
+nf.pipe(process.stdout);
 ```
