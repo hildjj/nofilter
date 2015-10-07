@@ -1,9 +1,152 @@
 stream = require 'stream'
 util = require 'util'
 
-# Stupid stream.
-# @property [Number] length the number of bytes to read
-module.exports = class Stupid extends stream.Transform
+# NoFilter stream.  Can be used to sink or source data to and from other
+# node streams.  Implemented as the "identity" Transform stream (hence the
+# name), but allows for inspecting data that is in-flight.
+#
+# @example source
+#   var n = new NoFilter('Zm9v', 'base64');
+#   n.pipe(process.stdout);
+#
+# @example sink
+#   var n = new Nofilter();
+#   # NOTE: 'finish' fires when the input is done writing
+#   n.on('finish', function() { console.log(n.toString('base64')); });
+#   process.stdin.pipe(n);
+#
+# @method #writeUInt8(value)
+#   Write an 8-bit unsigned integer to the stream.  Adds 1 byte.
+#   @param value [Number]
+# @method #writeUInt16LE(value)
+#   Write a little-endian 16-bit unsigned integer to the stream.  Adds
+#   2 bytes.
+#   @param value [Number]
+# @method #writeUInt16BE(value)
+#   Write a big-endian 16-bit unsigned integer to the stream.  Adds
+#   2 bytes.
+#   @param value [Number]
+# @method #writeUInt32LE(value)
+#   Write a little-endian 32-bit unsigned integer to the stream.  Adds
+#   4 bytes.
+#   @param value [Number]
+# @method #writeUInt32BE(value)
+#   Write a big-endian 32-bit unsigned integer to the stream.  Adds
+#   4 bytes.
+#   @param value [Number]
+# @method #writeInt8(value)
+#   Write an 8-bit signed integer to the stream.  Adds
+#   1 byte.
+#   @param value [Number]
+# @method #writeInt16LE(value)
+#   Write a little-endian 16-bit signed integer to the stream.  Adds
+#   2 bytes.
+#   @param value [Number]
+# @method #writeInt16BE(value)
+#   Write a big-endian 16-bit signed integer to the stream.  Adds
+#   2 bytes.
+#   @param value [Number]
+# @method #writeInt32LE(value)
+#   Write a little-endian 32-bit signed integer to the stream.  Adds
+#   4 bytes.
+#   @param value [Number]
+# @method #writeInt32BE(value)
+#   Write a big-endian 32-bit signed integer to the stream.  Adds
+#   4 bytes.
+#   @param value [Number]
+# @method #writeFloatLE(value)
+#   Write a little-endian 32-bit float to the stream.  Adds
+#   4 bytes.
+#   @param value [Number]
+# @method #writeFloatBE(value)
+#   Write a big-endian 32-bit float to the stream.  Adds
+#   4 bytes.
+#   @param value [Number]
+# @method #writeDoubleLE(value)
+#   Write a little-endian 64-bit double precision number to the stream.  Adds
+#   8 bytes.
+#   @param value [Number]
+# @method #writeDoubleBE(value)
+#   Write a big-endian 64-bit double precision number to the stream.  Adds
+#   8 bytes.
+#   @param value [Number]
+# @method #readUInt8()
+#   Read an unsigned 8-bit integer from the stream.  Consumes
+#   1 byte.
+#   @return [Number]
+# @method #readUInt16LE()
+#   Read a little-endian unsigned 16-bit integer from the stream.  Consumes
+#   2 bytes.
+#   @return [Number]
+# @method #readUInt16BE()
+#   Read a big-endian unsigned 16-bit integer from the stream.  Consumes
+#   2 bytes.
+#   @return [Number]
+# @method #readUInt32LE()
+#   Read a little-endian unsigned 32-bit integer from the stream.  Consumes
+#   4 bytes.
+#   @return [Number]
+# @method #readUInt32BE()
+#   Read a -bigendian unsigned 32-bit integer from the stream.  Consumes
+#   4 bytes.
+#   @return [Number]
+# @method #readInt8()
+#   Read a signed 8-bit integer from the stream.  Consumes
+#   1 byte.
+#   @return [Number]
+# @method #readInt16LE()
+#   Read a little-endian signed 16-bit integer from the stream.  Consumes
+#   2 bytes.
+#   @return [Number]
+# @method #readInt16BE()
+#   Read a big-endian signed 16-bit integer from the stream.  Consumes
+#   2 bytes.
+#   @return [Number]
+# @method #readInt32LE()
+#   Read a little-endian signed 32-bit integer from the stream.  Consumes
+#   4 bytes.
+#   @return [Number]
+# @method #readInt32BE()
+#   Read a big-endian signed 32-bit integer from the stream.  Consumes
+#   4 bytes.
+#   @return [Number]
+# @method #readFloatLE()
+#   Read a little-endian floating point number from the stream.  Consumes
+#   4 bytes.
+#   @return [Number]
+# @method #readFloatBE()
+#   Read a big-endian floating point number from the stream.  Consumes
+#   4 bytes.
+#   @return [Number]
+# @method #readDoubleLE()
+#   Read a little-endian double-precision number from the stream.  Consumes
+#   8 bytes.
+#   @return [Number]
+# @method #readDoubleBE()
+#   Read a big-endian double-precision number from the stream.  Consumes
+#   8 bytes.
+#   @return [Number]
+module.exports = class NoFilter extends stream.Transform
+  # Create a NoFilter.  Allow passing in source data (input, inputEncoding)
+  # at creation time.  Source data can also be passed in the options object.
+  #
+  # @param input [String, Buffer] Optional source data
+  # @param inputEncoding [String] Optional encoding name for input, ignored
+  #   if input is not a String
+  # @param options [Object] Other options
+  # @option options [String, Buffer] Input source data
+  # @option options [String] inputEncoding Encoding name for input, ignored
+  #   if input is not a String
+  # @option options [Number] highWaterMark The maximum number of bytes to store
+  #   in the internal buffer before ceasing to read from the underlying
+  #   resource. Default=16kb, or 16 for objectMode streams.
+  # @option options [String] encoding  If specified, then buffers will be
+  #   decoded to strings using the specified encoding. Default=null
+  # @option options [Boolean] objectMode Whether this stream should behave as a
+  #   stream of objects. Meaning that stream.read(n) returns a single value
+  #   instead of a Buffer of size n. Default=false
+  # @option options [Boolean] decodeStrings Whether or not to decode strings
+  #   into Buffers before passing them to _write(). Default=true
   constructor: (input, inputEncoding, options = {}) ->
     inp = undefined
     inpE = undefined
@@ -15,8 +158,6 @@ module.exports = class Stupid extends stream.Transform
             options = inputEncoding
         else
           options = input
-          inp = options?.input
-
       when 'string'
         inp = input
         if inputEncoding? and (typeof(inputEncoding) == 'object')
@@ -24,22 +165,68 @@ module.exports = class Stupid extends stream.Transform
         else
           inpE = inputEncoding
 
+    if !options?
+      options = {}
+    inp ?= options.input
     inpE ?= options.inputEncoding
     delete options.input
     delete options.inputEncoding
-    if options.objectMode?
-      options.readableObjectMode = options.objectMode
-      options.writableObjectMode = options.objectMode
-      delete options.objectMode
-
     super(options)
-
-    # when the write side ends, finish the read side
-    @once 'prefinish', =>
-      @push null
 
     if inp?
       @end inp, inpE
+
+  # Is the given object a {NoFilter}?
+  # @param obj [Object] The object to test.
+  # @return [Boolean]
+  @isNoFilter: (obj) ->
+    obj instanceof @
+
+  # The same as nf1.compare(nf2). Useful for sorting an Array of NoFilters:
+  # @example compare
+  #  var arr = [new NoFilter('1234'), new NoFilter('0123')];
+  #  arr.sort(Buffer.compare);
+  # @param nf1 [NoFilter] The first object to compare
+  # @param nf2 [NoFilter] The second object to compare
+  # @return [Number] -1, 0, 1 for less, equal, greater
+  @compare: (nf1, nf2) ->
+    if !(nf1 instanceof @)
+      throw new TypeError 'Arguments must be NoFilters'
+    if nf1 == nf2
+      0
+    else
+      nf1.compare nf2
+
+  # Returns a buffer which is the result of concatenating all the NoFilters in
+  # the list together. If the list has no items, or if the totalLength is 0,
+  # then it returns a zero-length buffer.
+  #
+  # If length is not provided, it is read from the buffers in the list. However,
+  # this adds an additional loop to the function, so it is faster to provide the
+  # length explicitly.
+  #
+  # @param list [Array of NoFilter] Inputs.  Must not be in object mode.
+  # @param length [Number] Optional.
+  # @return [Buffer] The concatenated values
+  @concat: (list, length) ->
+    if !Array.isArray list
+      throw new TypeError 'list argument must be an Array of NoFilters'
+    if (list.length == 0) or (length == 0)
+      return new Buffer 0
+    if !length?
+      length = list.reduce (tot, nf) ->
+        if !(nf instanceof NoFilter)
+          throw new TypeError 'list argument must be an Array of NoFilters'
+        tot + nf.length
+      , 0
+    bufs = list.map (nf) ->
+      if !(nf instanceof NoFilter)
+        throw new TypeError 'list argument must be an Array of NoFilters'
+      if nf._readableState.objectMode
+        # TODO: if any of them are in object mode, then return an array?
+        throw new Error 'NoFilter may not be in object mode for concat'
+      nf.slice()
+    Buffer.concat bufs, length
 
   # @nodoc
   _transform: (chunk, encoding, callback) ->
@@ -48,40 +235,89 @@ module.exports = class Stupid extends stream.Transform
     @push chunk
     callback()
 
-  # @nodoc
-  _flush: (cb) ->
-    cb()
-
-  # Non-destructively read bytes.  Useful for diagnostics.
-  # @param size [Number] Number of bytes to read.  If not specified, peek
-  #   at full contents.
-  peek: (size) ->
-    if sz? and (sz > 0)
-      sz = Math.min @_readableState.length, sz
+  # Returns a number indicating whether this comes before or after or is the
+  # same as the other NoFilter in sort order.
+  #
+  # @param other [NoFilter] The other object to compare
+  # @return [Number] -1, 0, 1 for less, equal, greater
+  compare: (other) ->
+    if !(other instanceof NoFilter)
+      throw new TypeError 'Arguments must be NoFilters'
+    if @_readableState.objectMode or other._readableState.objectMode
+      throw new Error 'Must not be in object mode to compare'
+    if @ == other
+      0
     else
-      sz = @_readableState.length
+      @slice().compare other.slice()
 
-    Buffer.concat @_readableState.buffer, sz
+  # Do these NoFilter's contain the same bytes?  Doesn't work if either is
+  # in object mode.
+  # @param other [NoFilter]
+  # @return [Boolean] Equal?
+  equals: (other) ->
+    @compare(other) == 0
 
+  # Read bytes or objects without consuming them.  Useful for diagnostics.
+  # Note: as a side-effect, concatenates multiple writes together into what
+  # looks like a single write, so that this concat doesn't have to happen
+  # multiple times when you're futzing with the same NoFilter.
+  #
+  # @param start [Number] Optional, Default: 0
+  # @param end [Number], Optional, Default: NoFilter.length
+  # @return [Buffer,Array] if in object mode, an array of objects.  Otherwize,
+  #   concatenated array of contents.
+  slice: (start, end) ->
+    if @_readableState.objectMode
+      @_readableState.buffer.slice start, end
+    else
+      switch @_readableState.buffer.length
+        when 0 then new Buffer(0)
+        when 1 then @_readableState.buffer[0].slice(start, end)
+        else
+          b = Buffer.concat @_readableState.buffer
+          @_readableState.buffer = [b]
+          b.slice start, end
+
+  # Get a byte by offset.  I didn't want to get into metaprogramming
+  # to give you the `NoFilter[0]` syntax.
+  # @param index [Number] The byte to retrieve
+  # @return [Number] 0-255
+  get: (index) ->
+    @slice()[index]
+
+  # Return an object compatible with Buffer's toJSON implementation, so
+  # that round-tripping will produce a Buffer.
+  # @return [Object]
+  #
+  # @example output for 'foo'
+  #   { type: 'Buffer', data: [ 102, 111, 111 ] }
   toJSON: ->
-    b = @peek()
+    b = @slice()
     if Buffer.isBuffer(b)
       b.toJSON()
     else
       b
 
+  # Decodes and returns a string from buffer data encoded using the specified
+  # character set encoding. If encoding is undefined or null, then encoding
+  # defaults to 'utf8'. The start and end parameters default to 0 and
+  # NoFilter.length when undefined.
+  #
+  # @param encoding [String] Optional, Default: 'utf8'
+  # @param start [Number] Optional, Default: 0
+  # @param end [Number] Optional, Default: NoFilter.length
+  # @return [String]
   toString: (encoding, start, end) ->
-    b = @peek()
-    if !b?
-      "null"
-    else
-      b.toString(encoding, start, end)
+    @slice().toString(encoding, start, end)
 
   # @nodoc
   inspect: (depth, options) ->
     hex = @_readableState.buffer.map (b) ->
       if Buffer.isBuffer(b)
-        options.stylize b.toString('hex'), 'string'
+        if options?.stylize
+          options.stylize b.toString('hex'), 'string'
+        else
+          b.toString('hex')
       else
         util.inspect(b, options)
     .join ', '
@@ -144,7 +380,7 @@ module.exports = class Stupid extends stream.Transform
 
   # @nodoc
   get = (props) ->
-    Stupid::__defineGetter__(name, getter) for name, getter of props
+    NoFilter::__defineGetter__(name, getter) for name, getter of props
 
   # @property [Number] The number of bytes currently available to read
   get length: -> @_readableState.length

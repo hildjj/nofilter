@@ -4,7 +4,9 @@
   "description": "Read and write a growable buffer as a stream",
   "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "gulp test",
+    "prepublish": "gulp prepublish",
+    "ci": "gulp ci"
   },
   "repository": {
     "type": "git",
@@ -17,9 +19,7 @@
     "transform",
     "#nofilter",
     "no-filter",
-    "concat",
-    "chunked",
-    "allocation"
+    "concat"
   ],
   "author": {
     "name": "Joe Hildebrand",
@@ -31,16 +31,19 @@
   },
   "homepage": "https://github.com/hildjj/nofilter#readme",
   "devDependencies": {
+    "chai": "^3.3",
     "coffee-script": "^1.10",
+    "del": "^2.0",
     "gulp": "^3.9",
     "gulp-codo": "^1.0",
     "gulp-coffee": "^2.3",
     "gulp-coffeelint": "^0.5",
     "gulp-istanbul": "^0.10",
     "gulp-live-server": "^0.0",
-    "gulp-nodeunit-runner": "^0.2",
+    "gulp-mocha": "^2.1",
     "gulp-sourcemaps": "^1.6",
     "gulp-util": "^3.0",
+    "mocha": "^2.3",
     "open": "^0.0"
   }
 }

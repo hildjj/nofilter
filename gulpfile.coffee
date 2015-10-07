@@ -2,19 +2,21 @@ gulp = require 'gulp'
 codo = require 'gulp-codo'
 coffee = require 'gulp-coffee'
 coffeelint = require 'gulp-coffeelint'
+del = require 'del'
 gls = require 'gulp-live-server'
 gutil = require 'gulp-util'
 istanbul = require 'gulp-istanbul'
-nodeunit = require 'gulp-nodeunit-runner'
+mocha = require 'gulp-mocha'
 open = require 'open'
 sourcemaps  = require 'gulp-sourcemaps'
 
 gulp.task 'coffee', ->
-  gulp.src './src/*.coffee'
+  cof = gulp.src './src/*.coffee'
   .pipe sourcemaps.init()
   .pipe coffee()
     .on 'error', (er) ->
       gutil.log er.stack
+      cof.end()
   .pipe sourcemaps.write()
   .pipe gulp.dest('./lib')
 
@@ -27,16 +29,16 @@ gulp.task 'doc', ->
   gulp.src './src/*.coffee',
     read: false
   .pipe codo
-    name: 'duplex-buffer'
-    title: 'Duplex-Buffer Documentation'
+    name: 'NoFilter'
+    title: 'NoFilter Documentation'
     readme: 'README.md'
     dir: './doc/'
     extra: 'LICENSE.md'
     undocumented: true
 
 gulp.task 'test', ['coffee'], ->
-  gulp.src './test/*.js'
-    .pipe nodeunit()
+  gulp.src './test/*.coffee'
+    .pipe mocha()
 
 gulp.task 'pre-coverage', ['coffee'], ->
   gulp.src([ 'lib/*.js' ])
@@ -44,12 +46,15 @@ gulp.task 'pre-coverage', ['coffee'], ->
   .pipe istanbul.hookRequire()
 
 gulp.task 'coverage', [ 'pre-coverage' ], ->
-  gulp.src ['test/*.js']
-  .pipe nodeunit()
+  t = gulp.src ['test/*.coffee']
+  .pipe mocha()
+    .on 'error', (er) ->
+      gutil.log er.stack
+      t.end()
   .pipe istanbul.writeReports()
 
 gulp.task 'watch', ['coverage'], ->
-  gulp.watch ['src/*.coffee', 'test/*.js'], ['coverage']
+  gulp.watch ['src/*.coffee', 'test/*'], ['coverage']
 
 gulp.task 'serve', ['watch'], ->
   server = gls.static 'coverage/lcov-report'
@@ -58,5 +63,17 @@ gulp.task 'serve', ['watch'], ->
   gulp.watch ['coverage/lcov-report/**/*.html'], (file) ->
     server.notify.apply server, [file]
 
+gulp.task 'clean', () ->
+  del [
+    'coverage/'
+    'doc/'
+    'lib/'
+    '**/.DS_Store'
+  ]
+
+gulp.task 'prepublish', ['clean'], (cb) ->
+  gulp.start 'coffee', cb
+
+gulp.task 'ci', ['coverage']
 
 gulp.task 'default', ['test']
