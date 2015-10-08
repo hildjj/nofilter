@@ -105,3 +105,11 @@ describe 'When not in object mode', ->
     nf1.write '3'
     expect(nf1.slice()).eql new Buffer('123')
     expect(nf1.get(0)).equal '1'.charCodeAt(0)
+
+  it 'emits a read event', (cb) ->
+    nf = new NoFilter '010203', 'hex'
+    nf.on 'read', (buf) ->
+      expect(buf).eql new Buffer([1,2])
+      cb()
+
+    expect(nf.read 2).eql new Buffer([1,2])

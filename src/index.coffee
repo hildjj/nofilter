@@ -15,6 +15,8 @@ util = require 'util'
 #   n.on('finish', function() { console.log(n.toString('base64')); });
 #   process.stdin.pipe(n);
 #
+# @event read(Buffer|String|Object) fired whenever anything is read from the stream.
+#
 # @method #writeUInt8(value)
 #   Write an 8-bit unsigned integer to the stream.  Adds 1 byte.
 #   @param value [Number]
@@ -234,6 +236,26 @@ module.exports = class NoFilter extends stream.Transform
       chunk = new Buffer chunk, encoding
     @push chunk
     callback()
+
+  # The read() method pulls some data out of the internal buffer and returns it.
+  # If there is no data available, then it will return null.
+  #
+  # If you pass in a size argument, then it will return that many bytes. If size
+  # bytes are not available, then it will return null, unless we've ended, in
+  # which case it will return the data remaining in the buffer.
+  #
+  # If you do not specify a size argument, then it will return all the data in
+  # the internal buffer.
+  #
+  # This version also fires the 'read' event upon a successful read.
+  #
+  # @param size [Number] Optional. Number of bytes to read.
+  # @return [String, Buffer, null]
+  read: (size) ->
+    buf = super size
+    if buf?
+      @emit 'read', buf
+    buf
 
   # Returns a number indicating whether this comes before or after or is the
   # same as the other NoFilter in sort order.
