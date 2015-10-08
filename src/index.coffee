@@ -15,7 +15,8 @@ util = require 'util'
 #   n.on('finish', function() { console.log(n.toString('base64')); });
 #   process.stdin.pipe(n);
 #
-# @event read(Buffer|String|Object) fired whenever anything is read from the stream.
+# @event read(Buffer|String|Object) fired whenever anything is read from the
+#   stream.
 #
 # @method #writeUInt8(value)
 #   Write an 8-bit unsigned integer to the stream.  Adds 1 byte.
