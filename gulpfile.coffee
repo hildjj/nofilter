@@ -11,6 +11,8 @@ mocha = require 'gulp-mocha'
 open = require 'open'
 sourcemaps  = require 'gulp-sourcemaps'
 
+require('gulp-release-tasks')(gulp)
+
 gulp.task 'coffee', ->
   cof = gulp.src './src/*.coffee'
   .pipe sourcemaps.init()

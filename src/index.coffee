@@ -150,6 +150,9 @@ module.exports = class NoFilter extends stream.Transform
   #   instead of a Buffer of size n. Default=false
   # @option options [Boolean] decodeStrings Whether or not to decode strings
   #   into Buffers before passing them to _write(). Default=true
+  # @option options [Boolean] watchPipe Whether to watch for 'pipe' events,
+  #   setting this stream's objectMode based on the objectMode of the input
+  #   stream. Default=true
   constructor: (input, inputEncoding, options = {}) ->
     inp = undefined
     inpE = undefined
@@ -174,7 +177,18 @@ module.exports = class NoFilter extends stream.Transform
     inpE ?= options.inputEncoding
     delete options.input
     delete options.inputEncoding
+    watchPipe = options.watchPipe ? true
+    delete options.watchPipe
     super(options)
+
+    if watchPipe
+      @on 'pipe', (readable) =>
+        om = readable._readableState.objectMode
+        if (@length > 0) and (om != @_readableState.objectMode)
+          throw new Error 'Do not switch objectMode in the middle of the stream'
+
+        @_readableState.objectMode = om
+        @_writableState.objectMode = om
 
     if inp?
       @end inp, inpE
