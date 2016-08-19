@@ -252,6 +252,19 @@ module.exports = class NoFilter extends stream.Transform
     @push chunk
     callback()
 
+  # @nodoc
+  _bufArray: () ->
+    bufs = @_readableState.buffer
+    # HACK: replace with something else one day.  This is what I get for
+    # relying on internals.
+    if !Array.isArray(bufs)
+      b = bufs.head
+      bufs = []
+      while b?
+        bufs.push b.data
+        b = b.next
+    bufs
+
   # The read() method pulls some data out of the internal buffer and returns it.
   # If there is no data available, then it will return null.
   #
@@ -271,6 +284,23 @@ module.exports = class NoFilter extends stream.Transform
     if buf?
       @emit 'read', buf
     buf
+
+  # Return a promise fulfilled with the full contents, after the 'finish'
+  # event fires.  Errors on the stream cause the promise to be rejected.
+  promise: (cb) ->
+    done = false
+    new Promise (resolve, reject) =>
+      @on 'finish', =>
+        data = @read()
+        if cb? and !done
+          done = true
+          cb null, data
+        resolve data
+      @on 'error', (er) ->
+        if cb? and !done
+          done = true
+          cb er
+        reject er
 
   # Returns a number indicating whether this comes before or after or is the
   # same as the other NoFilter in sort order.
@@ -305,14 +335,16 @@ module.exports = class NoFilter extends stream.Transform
   #   concatenated array of contents.
   slice: (start, end) ->
     if @_readableState.objectMode
-      @_readableState.buffer.slice start, end
+      @_bufArray().slice start, end
     else
-      switch @_readableState.buffer.length
+      bufs = @_bufArray()
+      switch bufs.length
         when 0 then new Buffer(0)
-        when 1 then @_readableState.buffer[0].slice(start, end)
+        when 1 then bufs[0].slice(start, end)
         else
-          b = Buffer.concat @_readableState.buffer
-          @_readableState.buffer = [b]
+          b = Buffer.concat bufs
+          # TODO: store the concatented bufs back
+          # @_readableState.buffer = [b]
           b.slice start, end
 
   # Get a byte by offset.  I didn't want to get into metaprogramming
@@ -349,7 +381,8 @@ module.exports = class NoFilter extends stream.Transform
 
   # @nodoc
   inspect: (depth, options) ->
-    hex = @_readableState.buffer.map (b) ->
+    bufs = @_bufArray()
+    hex = bufs.map (b) ->
       if Buffer.isBuffer(b)
         if options?.stylize
           options.stylize b.toString('hex'), 'string'
