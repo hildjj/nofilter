@@ -2,5 +2,6 @@
 --title "NoFilter Documentation"
 --readme README.md
 --undocumented
+--output docs
 ./src
 LICENSE.md
