@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset='UTF-8'>
+  <title>NoFilter Documentation</title>
+  <script src='../javascript/application.js'></script>
+  <script src='../javascript/search.js'></script>
+  <link rel='stylesheet' href='../stylesheets/application.css' type='text/css'>
+</head>
+  <body>
+    <div id='base' data-path='../'></div>
+<div id='header'>
+  <div id='menu'>
+    <a href='../extra/README.md.html' title='NoFilter'>
+      NoFilter
+    </a>
+    &raquo;
+    <a href='../alphabetical_index.html' title='Index'>
+      Index
+    </a>
+    &raquo;
+    <span class='title'>NoFilter</span>
+  </div>
+</div>
+    <div id='content'>
+      <h1>
+        Class:
+        NoFilter
+      </h1>
+      <table class='box'>
+        <tr>
+          <td>Defined in:</td>
+          <td>src&#47;index.coffee</td>
+        </tr>
+        <tr>
+          <td>Inherits:</td>
+          <td>
+            stream.Transform
+          </td>
+        </tr>
+      </table>
+      <h2>Overview</h2>
+      <div class='docstring'>
+  <p>NoFilter stream.  Can be used to sink or source data to and from other
+node streams.  Implemented as the &quot;identity&quot; Transform stream (hence the
+name), but allows for inspecting data that is in-flight.</p>
+  <div class='examples'>
+    <h3>Examples:</h3>
+    <h4>
+      source
+    </h4>
+    <pre><code class='coffeescript'>var n = new NoFilter(&#39;Zm9v&#39;, &#39;base64&#39;);
+n.pipe(process.stdout);</code></pre>
+    <h4>
+      sink
+    </h4>
+    <pre><code class='coffeescript'>var n = new Nofilter();
+# NOTE: &#39;finish&#39; fires when the input is done writing
+n.on(&#39;finish&#39;, function() { console.log(n.toString(&#39;base64&#39;)); });
+process.stdin.pipe(n);</code></pre>
+  </div>
+</div>
+<div class='tags'>
+  <div class='events'>
+    <h3>Events:</h3>
+    <div class='event'>
+      <p class='signature'>
+        read(Buffer|String|Object)
+      </p>
+      <div class='docstring'>
+  <p>fired whenever anything is read from the
+stream.</p>
+</div>
+<div class='tags'>
+</div>
+    </div>
+  </div>
+</div>
+      <h2>Property Summary</h2>
+      <dl class='properties'>
+        <dt id='length-property'>
+          <span class='signature'>
+            (Number)
+            <b>
+              length
+            </b>
+          </span>
+          <span class='note readonly title'>Readonly</span>
+        </dt>
+        <dd class='desc'>
+          The number of bytes currently available to read 
+        </dd>
+      </dl>
+      <h2>Class Method Summary</h2>
+      <ul class='summary'>
+  <li>
+    <span class='signature'>
+      <a href='#isNoFilter-static'>
+        .
+(Boolean)
+<b>isNoFilter</b><span>(obj)</span>
+      </a>
+    </span>
+    <span class='desc'>
+      Is the given object a <a href='../class/NoFilter.html'>NoFilter</a>? 
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#compare-static'>
+        .
+(Number)
+<b>compare</b><span>(nf1, nf2)</span>
+      </a>
+    </span>
+    <span class='desc'>
+      The same as nf1.compare(nf2). 
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#concat-static'>
+        .
+(Buffer)
+<b>concat</b><span>(list, length)</span>
+      </a>
+    </span>
+    <span class='desc'>
+      Returns a buffer which is the result of concatenating all the NoFilters in the list together.
+
+    </span>
+  </li>
+</ul>
+      <h2>Instance Method Summary</h2>
+      <ul class='summary'>
+  <li>
+    <span class='signature'>
+      <a href='#read-dynamic'>
+        #
+(String, Buffer, null)
+<b>read</b><span>(size)</span>
+      </a>
+    </span>
+    <span class='desc'>
+      The read() method pulls some data out of the internal buffer and returns it. 
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#promise-dynamic'>
+        #
+(void)
+<b>promise</b><span>(cb)</span>
+      </a>
+    </span>
+    <span class='desc'>
+      Return a promise fulfilled with the full contents, after the &#39;finish&#39; event fires.
+
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#compare-dynamic'>
+        #
+(Number)
+<b>compare</b><span>(other)</span>
+      </a>
+    </span>
+    <span class='desc'>
+      Returns a number indicating whether this comes before or after or is the same as the other NoFilter in sort order.
+
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#equals-dynamic'>
+        #
+(Boolean)
+<b>equals</b><span>(other)</span>
+      </a>
+    </span>
+    <span class='desc'>
+      Do these NoFilter&#39;s contain the same bytes?  Doesn&#39;t work if either is in object mode.
+
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#slice-dynamic'>
+        #
+(Buffer,Array)
+<b>slice</b><span>(start, end)</span>
+      </a>
+    </span>
+    <span class='desc'>
+      Read bytes or objects without consuming them. 
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#get-dynamic'>
+        #
+(Number)
+<b>get</b><span>(index)</span>
+      </a>
+    </span>
+    <span class='desc'>
+      Get a byte by offset. 
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#toJSON-dynamic'>
+        #
+(Object)
+<b>toJSON</b><span>()</span>
+      </a>
+    </span>
+    <span class='desc'>
+      Return an object compatible with Buffer&#39;s toJSON implementation, so that round-tripping will produce a Buffer.
+
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#toString-dynamic'>
+        #
+(String)
+<b>toString</b><span>(encoding, start, end)</span>
+      </a>
+    </span>
+    <span class='desc'>
+      Decodes and returns a string from buffer data encoded using the specified character set encoding.
+
+    </span>
+  </li>
+</ul>
+      <h2>Class Method Details</h2>
+      <div class='methods'>
+  <div class='method_details'>
+    <p class='signature' id='isNoFilter-static'>
+      .
+(Boolean)
+<b>isNoFilter</b><span>(obj)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>Is the given object a <a href='../class/NoFilter.html'>NoFilter</a>?</p>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>obj</span>
+      <span class='type'>
+        (
+          <tt>Object</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>The object to test. </span>
+    </li>
+  </ul>
+  <h3>Returns:</h3>
+  <ul class='return'>
+    <li>
+      <span class='type'></span>
+      <tt>Boolean</tt>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='compare-static'>
+      .
+(Number)
+<b>compare</b><span>(nf1, nf2)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>The same as nf1.compare(nf2). Useful for sorting an Array of NoFilters:
+ var arr = [new NoFilter(&#39;1234&#39;), new NoFilter(&#39;0123&#39;)];
+ arr.sort(Buffer.compare);</p>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>nf1</span>
+      <span class='type'>
+        (
+          <tt><a href='../class/NoFilter.html'>NoFilter</a></tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>The first object to compare </span>
+    </li>
+    <li>
+      <span class='name'>nf2</span>
+      <span class='type'>
+        (
+          <tt><a href='../class/NoFilter.html'>NoFilter</a></tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>The second object to compare </span>
+    </li>
+  </ul>
+  <h3>Returns:</h3>
+  <ul class='return'>
+    <li>
+      <span class='type'></span>
+      (
+        <tt>Number</tt>
+      )
+      &mdash;
+      <span class='desc'>-1, 0, 1 for less, equal, greater </span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='concat-static'>
+      .
+(Buffer)
+<b>concat</b><span>(list, length)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>Returns a buffer which is the result of concatenating all the NoFilters in
+the list together. If the list has no items, or if the totalLength is 0,
+then it returns a zero-length buffer.</p><p>If length is not provided, it is read from the buffers in the list. However,
+this adds an additional loop to the function, so it is faster to provide the
+length explicitly.</p>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>list</span>
+      <span class='type'>
+        (
+          <tt>Array of NoFilter</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>Inputs.  Must not be in object mode. </span>
+    </li>
+    <li>
+      <span class='name'>length</span>
+      <span class='type'>
+        (
+          <tt>Number</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>Optional. </span>
+    </li>
+  </ul>
+  <h3>Returns:</h3>
+  <ul class='return'>
+    <li>
+      <span class='type'></span>
+      (
+        <tt>Buffer</tt>
+      )
+      &mdash;
+      <span class='desc'>The concatenated values </span>
+    </li>
+  </ul>
+</div>
+  </div>
+</div>
+      <h2>Constructor Details</h2>
+      <div class='methods'>
+  <div class='method_details'>
+    <p class='signature' id='constructor-dynamic'>
+      #
+(void)
+<b>constructor</b><span>(input, inputEncoding, options = {})</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>Create a NoFilter.  Allow passing in source data (input, inputEncoding)
+at creation time.  Source data can also be passed in the options object.</p>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>input</span>
+      <span class='type'>
+        (
+          <tt>String, Buffer</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>Optional source data </span>
+    </li>
+    <li>
+      <span class='name'>inputEncoding</span>
+      <span class='type'>
+        (
+          <tt>String</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>Optional encoding name for input, ignored if input is not a String </span>
+    </li>
+    <li>
+      <span class='name'>options</span>
+      <span class='type'>
+        (
+          <tt>Object</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>Other options </span>
+    </li>
+  </ul>
+  <h3>
+    Options Hash:
+    (options):
+  </h3>
+  <ul class='options'>
+    <li>
+      <span class='name'>Input</span>
+      <span class='type'>
+        (
+          <tt>String, Buffer</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>source data </span>
+    </li>
+    <li>
+      <span class='name'>inputEncoding</span>
+      <span class='type'>
+        (
+          <tt>String</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>Encoding name for input, ignored if input is not a String </span>
+    </li>
+    <li>
+      <span class='name'>highWaterMark</span>
+      <span class='type'>
+        (
+          <tt>Number</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>The maximum number of bytes to store in the internal buffer before ceasing to read from the underlying resource. Default=16kb, or 16 for objectMode streams. </span>
+    </li>
+    <li>
+      <span class='name'>encoding</span>
+      <span class='type'>
+        (
+          <tt>String</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>If specified, then buffers will be decoded to strings using the specified encoding. Default=null </span>
+    </li>
+    <li>
+      <span class='name'>objectMode</span>
+      <span class='type'>
+        (
+          <tt>Boolean</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>Whether this stream should behave as a stream of objects. Meaning that stream.read(n) returns a single value instead of a Buffer of size n. Default=false </span>
+    </li>
+    <li>
+      <span class='name'>decodeStrings</span>
+      <span class='type'>
+        (
+          <tt>Boolean</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>Whether or not to decode strings into Buffers before passing them to _write(). Default=true </span>
+    </li>
+    <li>
+      <span class='name'>watchPipe</span>
+      <span class='type'>
+        (
+          <tt>Boolean</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>Whether to watch for &#39;pipe&#39; events, setting this stream&#39;s objectMode based on the objectMode of the input stream. Default=true </span>
+    </li>
+  </ul>
+</div>
+  </div>
+</div>
+      <h2>Instance Method Details</h2>
+      <div class='methods'>
+  <div class='method_details'>
+    <p class='signature' id='read-dynamic'>
+      #
+(String, Buffer, null)
+<b>read</b><span>(size)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>The read() method pulls some data out of the internal buffer and returns it.
+If there is no data available, then it will return null.</p><p>If you pass in a size argument, then it will return that many bytes. If size
+bytes are not available, then it will return null, unless we&#39;ve ended, in
+which case it will return the data remaining in the buffer.</p><p>If you do not specify a size argument, then it will return all the data in
+the internal buffer.</p><p>This version also fires the &#39;read&#39; event upon a successful read.</p>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>size</span>
+      <span class='type'>
+        (
+          <tt>Number</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>Optional. Number of bytes to read. </span>
+    </li>
+  </ul>
+  <h3>Returns:</h3>
+  <ul class='return'>
+    <li>
+      <span class='type'></span>
+      <tt>String, Buffer, null</tt>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='promise-dynamic'>
+      #
+(void)
+<b>promise</b><span>(cb)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>Return a promise fulfilled with the full contents, after the &#39;finish&#39;
+event fires.  Errors on the stream cause the promise to be rejected.</p>
+</div>
+<div class='tags'>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='compare-dynamic'>
+      #
+(Number)
+<b>compare</b><span>(other)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>Returns a number indicating whether this comes before or after or is the
+same as the other NoFilter in sort order.</p>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>other</span>
+      <span class='type'>
+        (
+          <tt><a href='../class/NoFilter.html'>NoFilter</a></tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>The other object to compare </span>
+    </li>
+  </ul>
+  <h3>Returns:</h3>
+  <ul class='return'>
+    <li>
+      <span class='type'></span>
+      (
+        <tt>Number</tt>
+      )
+      &mdash;
+      <span class='desc'>-1, 0, 1 for less, equal, greater </span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='equals-dynamic'>
+      #
+(Boolean)
+<b>equals</b><span>(other)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>Do these NoFilter&#39;s contain the same bytes?  Doesn&#39;t work if either is
+in object mode.</p>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>other</span>
+      <span class='type'>
+        (
+          <tt><a href='../class/NoFilter.html'>NoFilter</a></tt>
+        )
+      </span>
+    </li>
+  </ul>
+  <h3>Returns:</h3>
+  <ul class='return'>
+    <li>
+      <span class='type'></span>
+      (
+        <tt>Boolean</tt>
+      )
+      &mdash;
+      <span class='desc'>Equal? </span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='slice-dynamic'>
+      #
+(Buffer,Array)
+<b>slice</b><span>(start, end)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>Read bytes or objects without consuming them.  Useful for diagnostics.
+Note: as a side-effect, concatenates multiple writes together into what
+looks like a single write, so that this concat doesn&#39;t have to happen
+multiple times when you&#39;re futzing with the same NoFilter.</p>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>start</span>
+      <span class='type'>
+        (
+          <tt>Number</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>Optional, Default: 0 </span>
+    </li>
+    <li>
+      <span class='name'>end</span>
+      <span class='type'>
+        (
+          <tt>Number</tt>
+        )
+      </span>
+    </li>
+  </ul>
+  <h3>Returns:</h3>
+  <ul class='return'>
+    <li>
+      <span class='type'></span>
+      (
+        <tt>Buffer,Array</tt>
+      )
+      &mdash;
+      <span class='desc'>if in object mode, an array of objects.  Otherwize, concatenated array of contents. </span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='get-dynamic'>
+      #
+(Number)
+<b>get</b><span>(index)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>Get a byte by offset.  I didn&#39;t want to get into metaprogramming
+to give you the <code>NoFilter[0]</code> syntax.</p>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>index</span>
+      <span class='type'>
+        (
+          <tt>Number</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>The byte to retrieve </span>
+    </li>
+  </ul>
+  <h3>Returns:</h3>
+  <ul class='return'>
+    <li>
+      <span class='type'></span>
+      (
+        <tt>Number</tt>
+      )
+      &mdash;
+      <span class='desc'>0-255 </span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='toJSON-dynamic'>
+      #
+(Object)
+<b>toJSON</b><span>()</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>Return an object compatible with Buffer&#39;s toJSON implementation, so
+that round-tripping will produce a Buffer.</p>
+  <div class='examples'>
+    <h3>Examples:</h3>
+    <h4>
+      output for &#39;foo&#39;
+    </h4>
+    <pre><code class='coffeescript'>{ type: &#39;Buffer&#39;, data: [ 102, 111, 111 ] }</code></pre>
+  </div>
+</div>
+<div class='tags'>
+  <h3>Returns:</h3>
+  <ul class='return'>
+    <li>
+      <span class='type'></span>
+      <tt>Object</tt>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='toString-dynamic'>
+      #
+(String)
+<b>toString</b><span>(encoding, start, end)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>Decodes and returns a string from buffer data encoded using the specified
+character set encoding. If encoding is undefined or null, then encoding
+defaults to &#39;utf8&#39;. The start and end parameters default to 0 and
+NoFilter.length when undefined.</p>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>encoding</span>
+      <span class='type'>
+        (
+          <tt>String</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>Optional, Default: &#39;utf8&#39; </span>
+    </li>
+    <li>
+      <span class='name'>start</span>
+      <span class='type'>
+        (
+          <tt>Number</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>Optional, Default: 0 </span>
+    </li>
+    <li>
+      <span class='name'>end</span>
+      <span class='type'>
+        (
+          <tt>Number</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>Optional, Default: NoFilter.length </span>
+    </li>
+  </ul>
+  <h3>Returns:</h3>
+  <ul class='return'>
+    <li>
+      <span class='type'></span>
+      <tt>String</tt>
+    </li>
+  </ul>
+</div>
+  </div>
+</div>
+    </div>
+    <div id='footer'>
+  By
+  <a href='https://github.com/coffeedoc/codo' title='CoffeeScript API documentation generator'>
+    Codo
+  </a>
+  2.1.2
+  &#10034;
+  Press H to see the keyboard shortcuts
+  &#10034;
+  <a href='http://twitter.com/netzpirat' target='_parent'>@netzpirat</a>
+  &#10034;
+  <a href='http://twitter.com/_inossidabile' target='_parent'>@_inossidabile</a>
+</div>
+<iframe id='search_frame'></iframe>
+<div id='fuzzySearch'>
+  <input type='text'>
+  <ol></ol>
+</div>
+<div id='help'>
+  <p>
+    Quickly fuzzy find classes, mixins, methods, file:
+  </p>
+  <ul>
+    <li>
+      <span>T</span>
+      Open fuzzy finder dialog
+    </li>
+  </ul>
+  <p>
+    Control the navigation frame:
+  </p>
+  <ul>
+    <li>
+      <span>L</span>
+      Toggle list view
+    </li>
+    <li>
+      <span>C</span>
+      Show class list
+    </li>
+    <li>
+      <span>I</span>
+      Show mixin list
+    </li>
+    <li>
+      <span>F</span>
+      Show file list
+    </li>
+    <li>
+      <span>M</span>
+      Show method list
+    </li>
+    <li>
+      <span>E</span>
+      Show extras list
+    </li>
+  </ul>
+  <p>
+    You can focus and blur the search input:
+  </p>
+  <ul>
+    <li>
+      <span>S</span>
+      Focus search input
+    </li>
+    <li>
+      <span>Esc</span>
+      Blur search input
+    </li>
+  </ul>
+</div>
+  </body>
+</html>
