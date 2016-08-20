@@ -4,9 +4,20 @@
   "description": "Read and write a growable buffer as a stream",
   "main": "lib/index.js",
   "scripts": {
-    "test": "gulp test",
-    "prepublish": "gulp prepublish",
-    "ci": "gulp ci"
+    "clean": "rm -rf coverage lib doc man/* **/.DS_Store",
+    "lint": "coffeelint src test",
+    "coffee": "coffee -cm -o lib/ src",
+    "coverage": "nyc -r none npm test",
+    "precoverage": "npm run coffee -s",
+    "coveragehtml": "nyc report -r html",
+    "precoveragehtml": "npm run coverage",
+    "test": "mocha test/*.coffee",
+    "pretest": "npm run coffee -s",
+    "doc": "codo src",
+    "prepublish": "npm run coffee && npm run doc",
+    "watch": "watch 'npm run coveragehtml' src/",
+    "release": "npm version patch && git push --follow-tags && npm publish",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
@@ -32,21 +43,10 @@
   "homepage": "https://github.com/hildjj/nofilter#readme",
   "devDependencies": {
     "chai": "^3.3",
+    "codo": "^2.1",
     "coffee-script": "^1.10",
-    "del": "^2.0",
-    "gulp": "^3.9",
-    "gulp-codo": "^1.0",
-    "gulp-coffee": "^2.3",
-    "gulp-coffeelint": "^0.5",
-    "gulp-coveralls": "^0.1.4",
-    "gulp-git": "^1.5",
-    "gulp-istanbul": "^0.10",
-    "gulp-live-server": "^0.0",
-    "gulp-mocha": "^2.1",
-    "gulp-release-tasks": "0.0.3",
-    "gulp-sourcemaps": "^1.6",
-    "gulp-util": "^3.0",
-    "mocha": "^2.3",
-    "open": "^0.0"
+    "coveralls": "^2.11",
+    "mocha": "^3.0",
+    "nyc": "^8.1"
   }
 }
