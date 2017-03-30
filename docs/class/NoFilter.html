@@ -39,43 +39,6 @@
           </td>
         </tr>
       </table>
-      <h2>Overview</h2>
-      <div class='docstring'>
-  <p>NoFilter stream.  Can be used to sink or source data to and from other
-node streams.  Implemented as the &quot;identity&quot; Transform stream (hence the
-name), but allows for inspecting data that is in-flight.</p>
-  <div class='examples'>
-    <h3>Examples:</h3>
-    <h4>
-      source
-    </h4>
-    <pre><code class='coffeescript'>var n = new NoFilter(&#39;Zm9v&#39;, &#39;base64&#39;);
-n.pipe(process.stdout);</code></pre>
-    <h4>
-      sink
-    </h4>
-    <pre><code class='coffeescript'>var n = new Nofilter();
-# NOTE: &#39;finish&#39; fires when the input is done writing
-n.on(&#39;finish&#39;, function() { console.log(n.toString(&#39;base64&#39;)); });
-process.stdin.pipe(n);</code></pre>
-  </div>
-</div>
-<div class='tags'>
-  <div class='events'>
-    <h3>Events:</h3>
-    <div class='event'>
-      <p class='signature'>
-        read(Buffer|String|Object)
-      </p>
-      <div class='docstring'>
-  <p>fired whenever anything is read from the
-stream.</p>
-</div>
-<div class='tags'>
-</div>
-    </div>
-  </div>
-</div>
       <h2>Property Summary</h2>
       <dl class='properties'>
         <dt id='length-property'>
