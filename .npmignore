@@ -5,4 +5,10 @@ man
 TAGS
 .nyc_output/
 package-lock.json
+docs/
+test/
+.editorconfig
+.eslintrc.js
+.jsdoc.conf
 .vscode/
+.travis.yml
