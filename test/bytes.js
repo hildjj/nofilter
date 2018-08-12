@@ -28,8 +28,7 @@ describe('When not in object mode', () => {
     let n = new NoFilter(Buffer.from('010203', 'hex'))
     expect(n.toString('hex')).eql('010203')
 
-    n = new NoFilter(Buffer.from('010203', 'hex'),
-      {objectMode: false})
+    n = new NoFilter(Buffer.from('010203', 'hex'), { objectMode: false })
     expect(n.length).eql(3)
     return expect(n.toString('hex')).eql('010203')
   })
@@ -42,8 +41,7 @@ describe('When not in object mode', () => {
     expect(n.length).eql(3)
     expect(n.toString()).eql('foo')
 
-    n = new NoFilter('Zm9v',
-      {inputEncoding: 'base64'})
+    n = new NoFilter('Zm9v', { inputEncoding: 'base64' })
     expect(n.length).eql(3)
     expect(n.toString()).eql('foo')
 
@@ -107,7 +105,7 @@ describe('When not in object mode', () => {
 
       n.writeBigInt(BigInt('-1234567890'))
       expect(n.readUBigInt()).equals(BigInt('3060399406'))
-      
+
       expect(n.readUBigInt()).null
       expect(n.readBigInt()).null
     }
@@ -124,8 +122,7 @@ describe('When not in object mode', () => {
   it('supports compare', () => {
     const nf1 = new NoFilter('1')
     const nf2 = new NoFilter('2')
-    const nf3 = new NoFilter({
-      objectMode: true})
+    const nf3 = new NoFilter({ objectMode: true })
     expect(nf1.compare(nf2)).equal(-1)
     expect(nf1.compare(nf1)).equal(0)
     expect(nf1.equals(nf2)).equal(false)

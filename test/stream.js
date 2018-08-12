@@ -7,9 +7,11 @@ const { expect } = require('chai')
 describe('When streaming', () => {
   it('listens for pipe events', () => {
     const nf1 = new NoFilter({
-      objectMode: true})
+      objectMode: true
+    })
     const nf2 = new NoFilter({
-      objectMode: false})
+      objectMode: false
+    })
 
     nf1.pipe(nf2)
     return expect(nf2._readableState.objectMode).true
@@ -17,7 +19,8 @@ describe('When streaming', () => {
 
   it('does not have to listen for pipe events', () => {
     const nf1 = new NoFilter({
-      objectMode: true})
+      objectMode: true
+    })
     const nf2 = new NoFilter({
       objectMode: false,
       watchPipe: false
@@ -29,9 +32,11 @@ describe('When streaming', () => {
 
   it('does not allow piping after writing', () => {
     const nf1 = new NoFilter({
-      objectMode: true})
+      objectMode: true
+    })
     const nf2 = new NoFilter({
-      objectMode: false})
+      objectMode: false
+    })
     nf2.write('123')
     return expect(() => nf1.pipe(nf2)).to.throw(Error)
   })
@@ -50,7 +55,8 @@ describe('When streaming', () => {
       .catch(er => expect(er).instanceof(Error))
 
     nf.end({
-      a: 1})
+      a: 1
+    })
     return p
   })
 
@@ -72,7 +78,8 @@ describe('When streaming', () => {
     })
 
     nf.end({
-      a: 1})
+      a: 1
+    })
     return p.catch(er => expect(er).instanceof(TypeError))
   })
 })
