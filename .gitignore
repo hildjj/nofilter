@@ -4,3 +4,4 @@ coverage
 man
 TAGS
 .nyc_output/
+package-lock.json
