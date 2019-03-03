@@ -407,6 +407,13 @@ class NoFilter extends stream.Transform {
    * @returns {String}
    */
   toString(encoding, start, end) {
+    if ((!encoding || (encoding === 'utf8')) &amp;&amp; util.TextDecoder) {
+      const td = new util.TextDecoder('utf8', {
+        fatal: true, 
+        ignoreBOM: true
+      })
+      return td.decode(this.slice(start, end))
+    }
     return this.slice().toString(encoding, start, end)
   }
 
@@ -543,7 +550,7 @@ Object.assign(NoFilter.prototype, {
    * @param {Number} value - 0-255
    * @returns {boolean} true on success
    */
-  writeUInt8: _write_gen('writeUInt8',    1),
+  writeUInt8: _write_gen('writeUInt8', 1),
 
   /**
    * Write a little-endian 16-bit unsigned integer to the stream.  Adds

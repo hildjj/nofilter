@@ -6,12 +6,9 @@
   "scripts": {
     "clean": "rm -rf coverage doc man/* **/.DS_Store",
     "lint": "eslint lib/*.js bin/* test/*.js",
-    "coverage": "nyc -r none npm test",
-    "coveragehtml": "nyc report -r html",
-    "precoveragehtml": "npm run coverage",
+    "coverage": "nyc -r html npm test",
     "test": "mocha test/*.js",
     "doc": "jsdoc -c .jsdoc.conf",
-    "watch": "watch 'npm run coveragehtml' src/ test/",
     "release": "npm version patch && git push --follow-tags && npm publish",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
