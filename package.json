@@ -39,11 +39,11 @@
   "homepage": "https://github.com/hildjj/nofilter#readme",
   "devDependencies": {
     "chai": "^4.2",
-    "coveralls": "^3.0.2",
+    "coveralls": "^3.0.3",
     "jsdoc": "^3.5.5",
     "minami": "^1.2.3",
-    "mocha": "^5.2.0",
-    "nyc": "^13.1.0"
+    "mocha": "^6.0.2",
+    "nyc": "^13.3.0"
   },
   "engines": {
     "node": ">=6"
