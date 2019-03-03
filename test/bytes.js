@@ -131,7 +131,7 @@ describe('When not in object mode', () => {
   })
 
   it('slices', () => {
-    const nf1 = new NoFilter
+    const nf1 = new NoFilter()
     expect(nf1.slice()).eql(Buffer.alloc(0))
     nf1.write('1')
     nf1.write('2')
@@ -148,5 +148,18 @@ describe('When not in object mode', () => {
     })
 
     return expect(nf.read(2)).eql(Buffer.from([1, 2]))
+  })
+})
+
+describe('Underflow', () => {
+  it('When readError is false', () => {
+    const nf = new NoFilter('010203', 'hex', { readError: false })
+    expect(nf.read(4)).to.have.lengthOf(3)
+    expect(nf.read(4)).to.be.null
+  })
+  it('When readError is true', () => {
+    const nf = new NoFilter('010203', 'hex', { readError: true })
+    expect(() => nf.readUInt32BE()).to.throw(Error)
+    expect(() => nf.readUInt32BE()).to.throw(Error)
   })
 })
