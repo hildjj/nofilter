@@ -4,8 +4,8 @@
   "description": "Read and write a growable buffer as a stream",
   "main": "lib/index.js",
   "scripts": {
-    "clean": "rm -rf coverage doc man/* **/.DS_Store",
-    "lint": "eslint lib/*.js bin/* test/*.js",
+    "clean": "rm -rf coverage doc **/.DS_Store",
+    "lint": "eslint lib/*.js test/*.js",
     "coverage": "nyc -r html npm test",
     "test": "mocha test/*.js",
     "doc": "jsdoc -c .jsdoc.conf",
@@ -35,14 +35,15 @@
   },
   "homepage": "https://github.com/hildjj/nofilter#readme",
   "devDependencies": {
+    "@types/node": "^12.6.9",
     "chai": "^4.2",
-    "coveralls": "^3.0.3",
-    "jsdoc": "^3.5.5",
+    "coveralls": "^3.0.5",
+    "jsdoc": "^3.6.3",
     "minami": "^1.2.3",
-    "mocha": "^6.0.2",
-    "nyc": "^13.3.0"
+    "mocha": "^6.2.0",
+    "nyc": "^14.1.1"
   },
   "engines": {
-    "node": ">=6"
+    "node": ">=8"
   }
 }

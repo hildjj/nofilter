@@ -71,6 +71,10 @@ time.  Source data can also be passed in the options object.</div>
 
 
 
+<div class="description">
+    Create an instance of NoFilter.
+</div>
+
 
 
 
@@ -104,7 +108,7 @@ time.  Source data can also be passed in the options object.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line48">line 48</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line51">line 51</a>
     </li></ul></dd>
     
 
@@ -416,7 +420,7 @@ time.  Source data can also be passed in the options object.</div>
             
                 <td class="default">
                 
-                    16kb
+                    16384
                 
                 </td>
             
@@ -466,8 +470,8 @@ time.  Source data can also be passed in the options object.</div>
             
 
             <td class="description last">
-                If specified, then buffers will be
-  decoded to strings using the specified encoding
+                If specified, then buffers will
+  be decoded to strings using the specified encoding
                 
             </td>
         </tr>
@@ -640,7 +644,7 @@ time.  Source data can also be passed in the options object.</div>
             
 
             <td class="description last">
-                If true, when a read() 
+                If true, when a read()
   underflows, throw an error.
                 
             </td>
@@ -752,7 +756,7 @@ process.stdin.pipe(n);</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line424">line 424</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line447">line 447</a>
     </li></ul></dd>
     
 
@@ -836,7 +840,7 @@ process.stdin.pipe(n);</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line134">line 134</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line136">line 136</a>
     </li></ul></dd>
     
 
@@ -976,7 +980,7 @@ process.stdin.pipe(n);</code></pre>
 <h5>Example</h5>
 
     <pre class="prettyprint"><code>const arr = [new NoFilter('1234'), new NoFilter('0123')];
-arr.sort(Buffer.compare);</code></pre>
+arr.sort(NoFilter.compare);</code></pre>
 
 </div>
 
@@ -987,7 +991,7 @@ arr.sort(Buffer.compare);</code></pre>
 
     
 
-    <h4 class="name" id=".concat"><span class="type-signature">(static) </span>concat<span class="signature">(list, length<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Buffer}</span></h4>
+    <h4 class="name" id=".concat"><span class="type-signature">(static) </span>concat<span class="signature">(list, length<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Buffer|Array}</span></h4>
 
     
 
@@ -1000,7 +1004,7 @@ the totalLength is 0, then it returns a zero-length buffer.
 
 If length is not provided, it is read from the buffers in the
 list. However, this adds an additional loop to the function, so
-it is faster to provide the length explicitly.
+it is faster to provide the length explicitly if you already know it.
 </div>
 
 
@@ -1036,7 +1040,7 @@ it is faster to provide the length explicitly.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line158">line 158</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line162">line 162</a>
     </li></ul></dd>
     
 
@@ -1113,7 +1117,8 @@ it is faster to provide the length explicitly.
             
 
             <td class="description last">
-                Inputs.  Must not be in object mode.
+                Inputs.  Must not be all either in object
+  mode, or all not in object mode.
                 
             </td>
         </tr>
@@ -1189,6 +1194,9 @@ it is faster to provide the length explicitly.
     <dd>
         
 <span class="param-type"><code>Buffer</code></span>
+|
+
+<span class="param-type"><code>Array</code></span>
 
 
     </dd>
@@ -1196,7 +1204,8 @@ it is faster to provide the length explicitly.
 
 
 <div class="param-desc">
-    The concatenated values
+    The concatenated values as an array if in object
+  mode, otherwise a Buffer
 </div>
 
     
@@ -1254,7 +1263,7 @@ it is faster to provide the length explicitly.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line119">line 119</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line121">line 121</a>
     </li></ul></dd>
     
 
@@ -1415,7 +1424,7 @@ same as the other NoFilter in sort order.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line288">line 288</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line304">line 304</a>
     </li></ul></dd>
     
 
@@ -1576,7 +1585,7 @@ in object mode.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line309">line 309</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line328">line 328</a>
     </li></ul></dd>
     
 
@@ -1737,7 +1746,7 @@ to give you the `NoFilter[0]` syntax.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line347">line 347</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line366">line 366</a>
     </li></ul></dd>
     
 
@@ -1854,7 +1863,7 @@ to give you the `NoFilter[0]` syntax.
 
     
 
-    <h4 class="name" id="promise"><span class="type-signature"></span>promise<span class="signature">(cb<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Buffer>}</span></h4>
+    <h4 class="name" id="promise"><span class="type-signature"></span>promise<span class="signature">(cb<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;(Buffer|String)>}</span></h4>
 
     
 
@@ -1898,7 +1907,7 @@ event fires.  Errors on the stream cause the promise to be rejected.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line260">line 260</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line276">line 276</a>
     </li></ul></dd>
     
 
@@ -2013,7 +2022,7 @@ event fires.  Errors on the stream cause the promise to be rejected.
     </dt>
     <dd>
         
-<span class="param-type"><code>Promise.&lt;Buffer></code></span>
+<span class="param-type"><code>Promise.&lt;(Buffer|String)></code></span>
 
 
     </dd>
@@ -2087,7 +2096,7 @@ the internal buffer.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line232">line 232</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line248">line 248</a>
     </li></ul></dd>
     
 
@@ -2295,7 +2304,7 @@ complement format.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line474">line 474</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line497">line 497</a>
     </li></ul></dd>
     
 
@@ -2473,7 +2482,7 @@ Consumes 8 bytes.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line815">line 815</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line842">line 842</a>
     </li></ul></dd>
     
 
@@ -2582,7 +2591,7 @@ Consumes 8 bytes.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line804">line 804</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line831">line 831</a>
     </li></ul></dd>
     
 
@@ -2691,7 +2700,7 @@ Consumes 4 bytes.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line793">line 793</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line820">line 820</a>
     </li></ul></dd>
     
 
@@ -2800,7 +2809,7 @@ Consumes 4 bytes.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line782">line 782</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line809">line 809</a>
     </li></ul></dd>
     
 
@@ -2909,7 +2918,7 @@ Consumes 1 byte.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line727">line 727</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line754">line 754</a>
     </li></ul></dd>
     
 
@@ -3018,7 +3027,7 @@ Consumes 2 bytes.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line749">line 749</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line776">line 776</a>
     </li></ul></dd>
     
 
@@ -3127,7 +3136,7 @@ Consumes 2 bytes.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line738">line 738</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line765">line 765</a>
     </li></ul></dd>
     
 
@@ -3236,7 +3245,7 @@ Consumes 4 bytes.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line771">line 771</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line798">line 798</a>
     </li></ul></dd>
     
 
@@ -3345,7 +3354,7 @@ Consumes 4 bytes.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line760">line 760</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line787">line 787</a>
     </li></ul></dd>
     
 
@@ -3453,7 +3462,7 @@ Consumes 4 bytes.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line458">line 458</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line481">line 481</a>
     </li></ul></dd>
     
 
@@ -3630,7 +3639,7 @@ Consumes 4 bytes.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line673">line 673</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line700">line 700</a>
     </li></ul></dd>
     
 
@@ -3739,7 +3748,7 @@ Consumes 2 bytes.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line694">line 694</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line721">line 721</a>
     </li></ul></dd>
     
 
@@ -3848,7 +3857,7 @@ Consumes 2 bytes.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line683">line 683</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line710">line 710</a>
     </li></ul></dd>
     
 
@@ -3957,7 +3966,7 @@ Consumes 4 bytes.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line716">line 716</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line743">line 743</a>
     </li></ul></dd>
     
 
@@ -4066,7 +4075,7 @@ Consumes 4 bytes.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line705">line 705</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line732">line 732</a>
     </li></ul></dd>
     
 
@@ -4177,7 +4186,7 @@ multiple times when you're futzing with the same NoFilter.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line324">line 324</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line343">line 343</a>
     </li></ul></dd>
     
 
@@ -4344,7 +4353,7 @@ multiple times when you're futzing with the same NoFilter.
 
 
 <div class="param-desc">
-    if in object mode, an array of objects.  Otherwize,
+    if in object mode, an array of objects.  Otherwise,
   concatenated array of contents.
 </div>
 
@@ -4404,7 +4413,7 @@ that round-tripping will produce a Buffer.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line360">line 360</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line379">line 379</a>
     </li></ul></dd>
     
 
@@ -4519,7 +4528,7 @@ NoFilter.length when undefined.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line380">line 380</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line399">line 399</a>
     </li></ul></dd>
     
 
@@ -4780,7 +4789,7 @@ written as their 2's complement version.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line435">line 435</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line458">line 458</a>
     </li></ul></dd>
     
 
@@ -4940,7 +4949,7 @@ written as their 2's complement version.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line662">line 662</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line689">line 689</a>
     </li></ul></dd>
     
 
@@ -5100,7 +5109,7 @@ written as their 2's complement version.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line651">line 651</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line678">line 678</a>
     </li></ul></dd>
     
 
@@ -5260,7 +5269,7 @@ written as their 2's complement version.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line640">line 640</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line667">line 667</a>
     </li></ul></dd>
     
 
@@ -5420,7 +5429,7 @@ written as their 2's complement version.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line629">line 629</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line656">line 656</a>
     </li></ul></dd>
     
 
@@ -5580,7 +5589,7 @@ written as their 2's complement version.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line574">line 574</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line601">line 601</a>
     </li></ul></dd>
     
 
@@ -5740,7 +5749,7 @@ written as their 2's complement version.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line596">line 596</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line623">line 623</a>
     </li></ul></dd>
     
 
@@ -5900,7 +5909,7 @@ written as their 2's complement version.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line585">line 585</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line612">line 612</a>
     </li></ul></dd>
     
 
@@ -6060,7 +6069,7 @@ written as their 2's complement version.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line618">line 618</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line645">line 645</a>
     </li></ul></dd>
     
 
@@ -6220,7 +6229,7 @@ written as their 2's complement version.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line607">line 607</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line634">line 634</a>
     </li></ul></dd>
     
 
@@ -6380,7 +6389,7 @@ written as their 2's complement version.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line515">line 515</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line542">line 542</a>
     </li></ul></dd>
     
 
@@ -6541,7 +6550,7 @@ written as their 2's complement version.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line538">line 538</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line565">line 565</a>
     </li></ul></dd>
     
 
@@ -6702,7 +6711,7 @@ written as their 2's complement version.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line526">line 526</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line553">line 553</a>
     </li></ul></dd>
     
 
@@ -6863,7 +6872,7 @@ written as their 2's complement version.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line562">line 562</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line589">line 589</a>
     </li></ul></dd>
     
 
@@ -7024,7 +7033,7 @@ written as their 2's complement version.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line550">line 550</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line577">line 577</a>
     </li></ul></dd>
     
 
@@ -7153,7 +7162,7 @@ written as their 2's complement version.
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>

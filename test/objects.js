@@ -10,7 +10,7 @@ describe('When in object mode', () => {
       objectMode: true
     })
     expect(n._readableState.objectMode).to.be.true
-    return expect(n._writableState.objectMode).to.be.true
+    expect(n._writableState.objectMode).to.be.true
   })
 
   it('allows object writes', () => {
@@ -29,7 +29,7 @@ describe('When in object mode', () => {
       {a: 1},
       {b: 2}
     ])
-    return expect(n.slice(0, 1)).eql([
+    expect(n.slice(0, 1)).eql([
       {a: 1}
     ])
   })
@@ -40,7 +40,7 @@ describe('When in object mode', () => {
     })
     n.write({
       a: 1})
-    return expect(n.toJSON()).eql([
+    expect(n.toJSON()).eql([
       {a: 1}
     ])
   })
@@ -51,16 +51,50 @@ describe('When in object mode', () => {
     n.write({
       a: 1
     })
-    return expect(n.readUInt8()).equals(null)
+    expect(n.readUInt8()).equals(null)
   })
 
-  return it('supports inspect', () => {
+  it('can concat streams', () => {
+    const n = Array.from(new Array(5), (v, k) => {
+      const nf = new NoFilter({
+        objectMode: true
+      })
+      nf.write({a: k})
+      nf.write([k])
+      return nf
+    })
+    expect(NoFilter.concat(n)).eql([
+      {a: 0},
+      [0],
+      {a: 1},
+      [1],
+      {a: 2},
+      [2],
+      {a: 3},
+      [3],
+      {a: 4},
+      [4]
+    ])
+    expect(NoFilter.concat(n, 2)).eql([
+      {a: 0},
+      [0]
+    ])
+  })
+
+  it('supports inspect', () => {
     const n = new NoFilter({
       objectMode: true})
     n.write(1)
     n.write({
       a: 1
     })
-    return expect(util.inspect(n)).equals('NoFilter [1, { a: 1 }]')
+    expect(util.inspect(n)).equals('NoFilter [1, { a: 1 }]')
+  })
+
+  it ('supports toString', () => {
+    const n = new NoFilter({
+      objectMode: true})
+    n.write(1)
+    expect(n.toString()).equals('[1]')
   })
 })
