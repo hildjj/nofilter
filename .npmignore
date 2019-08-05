@@ -12,3 +12,4 @@ test/
 .jsdoc.conf
 .vscode/
 .travis.yml
+jsconfig.json
