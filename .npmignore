@@ -4,7 +4,6 @@ coverage
 man
 TAGS
 .nyc_output/
-package-lock.json
 docs/
 test/
 .editorconfig
@@ -13,3 +12,4 @@ test/
 .vscode/
 .travis.yml
 jsconfig.json
+.ncurc.json
