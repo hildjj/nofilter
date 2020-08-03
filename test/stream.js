@@ -52,11 +52,13 @@ describe('When streaming', () => {
   it('can generate a rejected promise', () => {
     const nf = new NoFilter()
     const p = nf.promise()
-      .catch(er => expect(er).instanceof(Error))
+      .then(v => expect.fail('should not execute'))
+      .catch(er => {
+        expect(er).instanceof(Error)
+      })
 
-    nf.end({
-      a: 1
-    })
+    nf.emit('error', new Error('Test error'))
+    nf.end()
     return p
   })
 
@@ -73,13 +75,12 @@ describe('When streaming', () => {
   return it('can generate a rejected promise and a callback', () => {
     const nf = new NoFilter()
     const p = nf.promise((er, val) => {
-      expect(er).instanceof(TypeError)
-      return expect(val).is.undefined
+      expect(er).instanceof(Error)
+      expect(val).is.undefined
     })
 
-    nf.end({
-      a: 1
-    })
-    return p.catch(er => expect(er).instanceof(TypeError))
+    nf.emit('error', new Error('Test error'))
+    nf.end()
+    return p.then(v => expect.fail(), er => expect(er).instanceof(Error))
   })
 })
