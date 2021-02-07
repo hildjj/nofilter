@@ -3,6 +3,31 @@
 const NoFilter = require('../')
 const { expect } = require('chai')
 const util = require('util')
+const path = require('path')
+
+async function requireWithFailedDependency(source, dependency, fn) {
+  const src = require.resolve(source)
+  const dep = require.resolve(dependency)
+  const old_src = require.cache[src]
+  const old_dep = require.cache[dep]
+  require.cache[dep] = {
+    loaded: true,
+    get exports() {
+      // see @node/lib/internal/modules/cjs/loader.js#tryPackage()
+      const err = new Error(
+        `Cannot find module '${dep}'. ` +
+        'Please verify that the package.json has a valid "main" entry'
+      )
+      err.code = 'MODULE_NOT_FOUND'
+      err.path = path.resolve(dependency, 'package.json')
+      err.requestPath = __filename
+    }
+  }
+  delete require.cache[src]
+  await fn(require(source))
+  require.cache[src] = old_src
+  require.cache[dep] = old_dep
+}
 
 describe('When in object mode', () => {
   it('can be created', () => {
@@ -81,7 +106,7 @@ describe('When in object mode', () => {
     ])
   })
 
-  it('supports inspect', () => {
+  it('supports inspect', async() => {
     const n = new NoFilter({
       objectMode: true})
     n.write(1)
@@ -89,6 +114,16 @@ describe('When in object mode', () => {
       a: 1
     })
     expect(util.inspect(n)).equals('NoFilter [1, { a: 1 }]')
+    await requireWithFailedDependency('../', 'util', (nof) => {
+      const n = new nof({
+        objectMode: true
+      })
+      n.write(1)
+      n.write({
+        a: 1
+      })
+      expect(util.inspect(n)).equals('NoFilter [1, [object Object]]')
+    })
   })
 
   it ('supports toString', () => {

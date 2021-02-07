@@ -6,7 +6,7 @@ const util = require('util')
 
 describe('When not in object mode', () => {
   it('can be created with no params', () => {
-    const n = new NoFilter
+    const n = new NoFilter()
     expect(n).is.not.null
     expect(n).to.be.an.instanceof(NoFilter)
     expect(NoFilter.isNoFilter(n)).true
@@ -116,7 +116,7 @@ describe('When not in object mode', () => {
     n.write('01', 'hex')
     n.write(Buffer.from([2]))
     expect(util.inspect(n)).equals('NoFilter [01, 02]')
-    return expect(n.inspect()).equals('NoFilter [01, 02]')
+    expect(n.inspect()).equals('NoFilter [01, 02]')
   })
 
   it('supports compare', () => {
@@ -127,7 +127,7 @@ describe('When not in object mode', () => {
     expect(nf1.compare(nf1)).equal(0)
     expect(nf1.equals(nf2)).equal(false)
     expect(() => nf1.compare(nf3)).to.throw(Error)
-    return expect(() => nf3.compare(nf1)).to.throw(Error)
+    expect(() => nf3.compare(nf1)).to.throw(Error)
   })
 
   it('slices', () => {
