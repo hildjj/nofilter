@@ -1,6 +1,6 @@
 {
   "name": "nofilter",
-  "version": "1.0.4",
+  "version": "2.0.0",
   "description": "Read and write a growable buffer as a stream",
   "main": "lib/index.js",
   "scripts": {
