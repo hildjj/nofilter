@@ -3,7 +3,6 @@
 
 const NoFilter = require('../')
 const { expect } = require('chai')
-const util = require('util')
 
 describe('Static methods', () => {
   it('can be compared', () => {
