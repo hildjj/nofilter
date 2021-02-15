@@ -21,11 +21,14 @@ async function requireWithFailedDependency(source, dependency, fn) {
       err.code = 'MODULE_NOT_FOUND'
       err.path = path.resolve(dependency, 'package.json')
       err.requestPath = __filename
+      throw err
     }
   }
   delete require.cache[src]
   await fn(require(source))
+  // eslint-disable-next-line require-atomic-updates
   require.cache[src] = old_src
+  // eslint-disable-next-line require-atomic-updates
   require.cache[dep] = old_dep
 }
 
@@ -39,8 +42,7 @@ describe('When in object mode', () => {
   })
 
   it('allows object writes', () => {
-    const n = new NoFilter({
-      objectMode: true})
+    const n = new NoFilter({ objectMode: true })
     n.write({
       a: 1
     })
@@ -63,16 +65,14 @@ describe('When in object mode', () => {
     const n = new NoFilter({
       objectMode: true
     })
-    n.write({
-      a: 1})
+    n.write({ a: 1 })
     expect(n.toJSON()).eql([
       {a: 1}
     ])
   })
 
   it('does not fail reading integers', () => {
-    const n = new NoFilter({
-      objectMode: true})
+    const n = new NoFilter({ objectMode: true })
     n.write({
       a: 1
     })
@@ -107,28 +107,26 @@ describe('When in object mode', () => {
   })
 
   it('supports inspect', async() => {
-    const n = new NoFilter({
-      objectMode: true})
+    const n = new NoFilter({ objectMode: true })
     n.write(1)
     n.write({
       a: 1
     })
     expect(util.inspect(n)).equals('NoFilter [1, { a: 1 }]')
-    await requireWithFailedDependency('../', 'util', (nof) => {
-      const n = new nof({
+    await requireWithFailedDependency('../', 'util', NewNoFilter => {
+      const nof = new NewNoFilter({
         objectMode: true
       })
-      n.write(1)
-      n.write({
+      nof.write(1)
+      nof.write({
         a: 1
       })
-      expect(util.inspect(n)).equals('NoFilter [1, [object Object]]')
+      expect(util.inspect(nof)).equals('NoFilter [1, [object Object]]')
     })
   })
 
-  it ('supports toString', () => {
-    const n = new NoFilter({
-      objectMode: true})
+  it('supports toString', () => {
+    const n = new NoFilter({ objectMode: true })
     n.write(1)
     expect(n.toString()).equals('[1]')
   })

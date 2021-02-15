@@ -45,8 +45,7 @@ describe('When not in object mode', () => {
     expect(n.length).eql(3)
     expect(n.toString()).eql('foo')
 
-    n = new NoFilter('Zm9v', 'base64',
-      {objectMode: false})
+    n = new NoFilter('Zm9v', 'base64', {objectMode: false})
     expect(n.length).eql(3)
     return expect(n.toString()).eql('foo')
   })
@@ -79,7 +78,7 @@ describe('When not in object mode', () => {
   })
 
   it('does integer read/writes', () => {
-    const n = new NoFilter
+    const n = new NoFilter()
     n.writeUInt8(255)
     expect(n.toString('hex')).equals('ff')
     expect(n.readUInt8()).equals(255)
@@ -89,7 +88,7 @@ describe('When not in object mode', () => {
 
   it('does biginteger read/writes', () => {
     if (typeof BigInt === 'function') {
-      const n = new NoFilter
+      const n = new NoFilter()
       // don't use 1n syntax, for backward-compatibility
       n.writeBigInt(BigInt('17123812398091231231231'))
       expect(n.toString('hex')).equals('03a048a28a37b1b6fcff')
@@ -112,7 +111,7 @@ describe('When not in object mode', () => {
   })
 
   it('supports inspect', () => {
-    const n = new NoFilter
+    const n = new NoFilter()
     n.write('01', 'hex')
     n.write(Buffer.from([2]))
     expect(util.inspect(n)).equals('NoFilter [01, 02]')
@@ -140,9 +139,9 @@ describe('When not in object mode', () => {
     return expect(nf1.get(0)).equal('1'.charCodeAt(0))
   })
 
-  return it('emits a read event', (cb) => {
+  return it('emits a read event', cb => {
     const nf = new NoFilter('010203', 'hex')
-    nf.on('read', (buf) => {
+    nf.on('read', buf => {
       expect(buf).eql(Buffer.from([1, 2]))
       return cb()
     })
