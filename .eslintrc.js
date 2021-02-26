@@ -3,7 +3,8 @@
 module.exports = {
   extends: '@cto.af',
   globals: {
-    BigInt: false
+    BigInt: false,
+    globalThis: false
   },
   plugins: [
     'chai-friendly'

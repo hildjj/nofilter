@@ -49,5 +49,8 @@
   },
   "engines": {
     "node": ">=10.18"
+  },
+  "dependencies": {
+    "@offirmo/globalthis-ponyfill": "^3.0.1"
   }
 }
