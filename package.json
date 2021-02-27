@@ -47,10 +47,10 @@
     "mocha": "^7.2.0",
     "nyc": "^15.1.0"
   },
+  "dependencies": {
+    "@cto.af/textdecoder": "^0.0.0"
+  },
   "engines": {
     "node": ">=10.18"
-  },
-  "dependencies": {
-    "@offirmo/globalthis-ponyfill": "^3.0.1"
   }
 }
