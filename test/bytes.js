@@ -74,7 +74,7 @@ describe('When not in object mode', () => {
     const n = new NoFilter('010203', 'hex')
     const b = Buffer.from('010203', 'hex')
     expect(n.toString()).eql(b.toString())
-    return expect(n.toString('hex')).eql(b.toString('hex'))
+    expect(n.toString('hex')).eql(b.toString('hex'))
   })
 
   it('does integer read/writes', () => {
@@ -82,8 +82,48 @@ describe('When not in object mode', () => {
     n.writeUInt8(255)
     expect(n.toString('hex')).equals('ff')
     expect(n.readUInt8()).equals(255)
+    n.writeInt8(-128)
+    expect(n.readInt8()).equals(-128)
+
+    n.writeUInt16LE(0x0102)
+    expect(n.readUInt16LE()).equals(0x0102)
+    n.writeUInt16BE(0x0102)
+    expect(n.readUInt16BE()).equals(0x0102)
+    n.writeInt16LE(0x0102)
+    expect(n.readInt16LE()).equals(0x0102)
+    n.writeInt16BE(0x0102)
+    expect(n.readInt16BE()).equals(0x0102)
+
+    n.writeUInt32LE(0x01020304)
+    expect(n.readUInt32LE()).equals(0x01020304)
+    n.writeUInt32BE(0x01020304)
+    expect(n.readUInt32BE()).equals(0x01020304)
+    n.writeInt32LE(0x01020304)
+    expect(n.readInt32LE()).equals(0x01020304)
     n.writeInt32BE(0x01020304)
-    return expect(n.toString('hex')).equals('01020304')
+    expect(n.readInt32BE()).equals(0x01020304)
+
+    n.writeFloatLE(-1.5)
+    expect(n.readFloatLE()).equals(-1.5)
+    n.writeFloatBE(-1.5)
+    expect(n.readFloatBE()).equals(-1.5)
+
+    n.writeDoubleLE(-1.5)
+    expect(n.readDoubleLE()).equals(-1.5)
+    n.writeDoubleBE(-1.5)
+    expect(n.readDoubleBE()).equals(-1.5)
+
+    n.writeBigInt64LE(-0x0102030405060708n)
+    expect(n.readBigInt64LE()).equals(-0x0102030405060708n)
+    n.writeBigInt64BE(0x0102030405060708n)
+    expect(n.readBigInt64BE()).equals(0x0102030405060708n)
+
+    n.writeBigUInt64LE(0x0102030405060708n)
+    expect(n.readBigUInt64LE()).equals(0x0102030405060708n)
+    n.writeBigUInt64BE(0x0102030405060708n)
+    expect(n.readBigUInt64BE()).equals(0x0102030405060708n)
+
+    expect(n.length).equals(0)
   })
 
   it('does biginteger read/writes', () => {
@@ -115,7 +155,6 @@ describe('When not in object mode', () => {
     n.write('01', 'hex')
     n.write(Buffer.from([2]))
     expect(util.inspect(n)).equals('NoFilter [01, 02]')
-    expect(n.inspect()).equals('NoFilter [01, 02]')
   })
 
   it('supports compare', () => {

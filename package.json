@@ -3,9 +3,10 @@
   "version": "2.0.3",
   "description": "Read and write a growable buffer as a stream",
   "main": "lib/index.js",
+  "types": "types/index.d.ts",
   "scripts": {
     "clean": "rm -rf coverage doc **/.DS_Store",
-    "lint": "eslint lib/*.js test/*.js",
+    "lint": "eslint . --ext js",
     "coverage": "nyc -r html npm test",
     "test": "mocha test/*.js",
     "doc": "jsdoc -c .jsdoc.conf",
@@ -36,13 +37,13 @@
   "homepage": "https://github.com/hildjj/nofilter#readme",
   "devDependencies": {
     "@cto.af/eslint-config": "*",
-    "@types/node": "^14.14.25",
+    "@types/node": "^16.3.2",
     "chai": "^4.3",
-    "coveralls": "^3.1.0",
-    "eslint": "^7.20.0",
-    "eslint-plugin-chai-friendly": "^0.6.0",
+    "coveralls": "^3.1.1",
+    "eslint": "^7.30.0",
+    "eslint-plugin-chai-friendly": "^0.7.1",
     "eslint-plugin-node": "^11.1.0",
-    "jsdoc": "^3.6.6",
+    "jsdoc": "^3.6.7",
     "minami": "^1.2.3",
     "mocha": "^7.2.0",
     "nyc": "^15.1.0"
@@ -51,6 +52,6 @@
     "@cto.af/textdecoder": "^0.0.0"
   },
   "engines": {
-    "node": ">=10.18"
+    "node": ">=12.9"
   }
 }
