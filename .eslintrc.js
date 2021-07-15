@@ -6,11 +6,11 @@ module.exports = {
     BigInt: false,
     globalThis: false
   },
-  plugins: [
-    'chai-friendly'
+  ignorePatterns: [
+    'node_modules/',
+    'docs/'
   ],
   rules: {
-    'no-unused-expressions': 'off',
-    'chai-friendly/no-unused-expressions': 'error'
+    'no-unused-expressions': 'off'
   }
 }

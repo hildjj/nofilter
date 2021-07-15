@@ -13,8 +13,13 @@ features, test coverage, etc.
 
 As a data sink:
 ```javascript
-var NoFilter = require('nofilter');
-nf = new NoFilter();
+const NoFilter = require('nofilter');
+// In ES6:
+// import NoFilter from 'nofilter'
+// In typescript:
+// import NoFilter = require('nofilter')
+
+const nf = new NoFilter();
 nf.on('finish', function() {
   console.log(nf.toString('base64'));
 });
@@ -23,8 +28,7 @@ process.stdin.pipe(nf);
 
 As a data source:
 ```javascript
-var NoFilter = require('nofilter');
-nf = new NoFilter('010203', 'hex');
+const nf = new NoFilter('010203', 'hex');
 nf.pipe(process.stdout);
 ```
 

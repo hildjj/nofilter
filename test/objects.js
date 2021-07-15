@@ -3,34 +3,6 @@
 const NoFilter = require('../')
 const { expect } = require('chai')
 const util = require('util')
-const path = require('path')
-
-async function requireWithFailedDependency(source, dependency, fn) {
-  const src = require.resolve(source)
-  const dep = require.resolve(dependency)
-  const old_src = require.cache[src]
-  const old_dep = require.cache[dep]
-  require.cache[dep] = {
-    loaded: true,
-    get exports() {
-      // see @node/lib/internal/modules/cjs/loader.js#tryPackage()
-      const err = new Error(
-        `Cannot find module '${dep}'. ` +
-        'Please verify that the package.json has a valid "main" entry'
-      )
-      err.code = 'MODULE_NOT_FOUND'
-      err.path = path.resolve(dependency, 'package.json')
-      err.requestPath = __filename
-      throw err
-    }
-  }
-  delete require.cache[src]
-  await fn(require(source))
-  // eslint-disable-next-line require-atomic-updates
-  require.cache[src] = old_src
-  // eslint-disable-next-line require-atomic-updates
-  require.cache[dep] = old_dep
-}
 
 describe('When in object mode', () => {
   it('can be created', () => {
@@ -106,28 +78,62 @@ describe('When in object mode', () => {
     ])
   })
 
-  it('supports inspect', async() => {
+  it('supports inspect', () => {
     const n = new NoFilter({ objectMode: true })
     n.write(1)
     n.write({
-      a: 1
+      a: 'foo'
     })
-    expect(util.inspect(n)).equals('NoFilter [1, { a: 1 }]')
-    await requireWithFailedDependency('../', 'util', NewNoFilter => {
-      const nof = new NewNoFilter({
-        objectMode: true
-      })
-      nof.write(1)
-      nof.write({
-        a: 1
-      })
-      expect(util.inspect(nof)).equals('NoFilter [1, [object Object]]')
-    })
+    expect(util.inspect(n)).equals('NoFilter [1, {"a":"foo"}]')
   })
 
   it('supports toString', () => {
     const n = new NoFilter({ objectMode: true })
     n.write(1)
     expect(n.toString()).equals('[1]')
+  })
+
+  it('fails reading types', () => {
+    const nof = new NoFilter({
+      objectMode: true
+    })
+    nof.write(1)
+    expect(nof.readUInt8()).equals(null)
+    nof.write(1)
+    expect(nof.readUInt16LE()).equals(null)
+    nof.write(1)
+    expect(nof.readUInt16BE()).equals(null)
+    nof.write(1)
+    expect(nof.readUInt32LE()).equals(null)
+    nof.write(1)
+    expect(nof.readUInt32BE()).equals(null)
+    nof.write(1)
+    expect(nof.readInt8()).equals(null)
+    nof.write(1)
+    expect(nof.readInt16LE()).equals(null)
+    nof.write(1)
+    expect(nof.readInt16BE()).equals(null)
+    nof.write(1)
+    expect(nof.readInt32LE()).equals(null)
+    nof.write(1)
+    expect(nof.readInt32BE()).equals(null)
+
+    nof.write(1)
+    expect(nof.readFloatLE()).equals(null)
+    nof.write(1)
+    expect(nof.readFloatBE()).equals(null)
+    nof.write(1)
+    expect(nof.readDoubleLE()).equals(null)
+    nof.write(1)
+    expect(nof.readDoubleBE()).equals(null)
+
+    nof.write(1)
+    expect(nof.readBigUInt64LE()).equals(null)
+    nof.write(1)
+    expect(nof.readBigUInt64BE()).equals(null)
+    nof.write(1)
+    expect(nof.readBigInt64LE()).equals(null)
+    nof.write(1)
+    expect(nof.readBigInt64BE()).equals(null)
   })
 })
