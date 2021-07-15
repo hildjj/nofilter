@@ -1,6 +1,45 @@
 /// <reference types="node" />
 export = NoFilter;
 /**
+  * @typedef {object} NoFilterOptions
+  * @property {string|Buffer} [input=null] - Input source data
+  * @property {BufferEncoding} [inputEncoding=null] - Encoding name for input,
+  *   ignored if input is not a String
+  * @property {number} [highWaterMark=16384] - The maximum number of bytes to
+  *   store in the internal buffer before ceasing to read from the underlying
+  *   resource. Default=16kb, or 16 for objectMode streams
+  * @property {BufferEncoding} [encoding=null] - If specified, then buffers
+  *   will be decoded to strings using the specified encoding
+  * @property {boolean} [objectMode=false] - Whether this stream should behave
+  *   as a stream of objects. Meaning that stream.read(n) returns a single
+  *   value instead of a Buffer of size n
+  * @property {boolean} [decodeStrings=true] - Whether or not to decode
+  *   strings into Buffers before passing them to _write()
+  * @property {boolean} [watchPipe=true] - Whether to watch for 'pipe' events,
+  *   setting this stream's objectMode based on the objectMode of the input
+  *   stream
+  * @property {boolean} [readError=false] - If true, when a read() underflows,
+  *   throw an error.
+  * @property {boolean} [allowHalfOpen=true] - If set to false, then the
+  *   stream will automatically end the writable side when the readable side
+  *   ends
+  * @property {boolean} [autoDestroy=true] - Whether this stream should
+  *   automatically call .destroy() on itself after ending.
+  * @property {BufferEncoding} [defaultEncoding='utf8'] - The default encoding
+  *   that is used when no encoding is specified as an argument to
+  *   stream.write().
+  * @property {boolean} [emitClose=true] - Whether or not the stream should
+  *   emit 'close' after it has been destroyed.
+  * @property {number} [readableHighWaterMark] - Sets highWaterMark for the
+  *   readable side of the stream. Has no effect if highWaterMark is provided.
+  * @property {boolean} [readableObjectMode=false] - Sets objectMode for
+  *   readable side of the stream. Has no effect if objectMode is true.
+  * @property {number} [writableHighWaterMark] - Sets highWaterMark for the
+  *   writable side of the stream. Has no effect if highWaterMark is provided.
+  * @property {boolean} [writableObjectMode=false] - Sets objectMode for
+  *   writable side of the stream. Has no effect if objectMode is true.
+  */
+/**
  * NoFilter stream.  Can be used to sink or source data to and from
  * other node streams.  Implemented as the "identity" Transform stream
  * (hence the name), but allows for inspecting data that is in-flight.
@@ -57,39 +96,12 @@ declare class NoFilter extends stream.Transform {
     /**
      * Create an instance of NoFilter.
      *
-     * @param {string|Buffer} [input] - Source data
-     * @param {BufferEncoding} [inputEncoding=null] - Encoding name for input,
-     *   ignored if input is not a String
-     * @param {object} [options={}] - Other options
-     * @param {string|Buffer} [options.input=null] - Input source data
-     * @param {BufferEncoding} [options.inputEncoding=null] - Encoding name for
-     *   input, ignored if input is not a String
-     * @param {number} [options.highWaterMark=16384] - The maximum number of
-     *   bytes to store in the internal buffer before ceasing to read from the
-     *   underlying resource. Default=16kb, or 16 for objectMode streams
-     * @param {BufferEncoding} [options.encoding=null] - If specified, then
-     *   buffers will be decoded to strings using the specified encoding
-     * @param {boolean} [options.objectMode=false] - Whether this stream should
-     *   behave as a stream of objects. Meaning that stream.read(n) returns a
-     *   single value instead of a Buffer of size n
-     * @param {boolean} [options.decodeStrings=true] - Whether or not to decode
-     *   strings into Buffers before passing them to _write()
-     * @param {boolean} [options.watchPipe=true] - Whether to watch for 'pipe'
-     *   events, setting this stream's objectMode based on the objectMode of the
-     *   input stream
-     * @param {boolean} [options.readError=false] - If true, when a read()
-     *   underflows, throw an error.
+     * @param {string|Buffer|BufferEncoding|NoFilterOptions} [input] - Source data
+     * @param {BufferEncoding|NoFilterOptions} [inputEncoding] - Encoding
+     *   name for input, ignored if input is not a String
+     * @param {NoFilterOptions} [options] - Other options
      */
-    constructor(input?: string | Buffer, inputEncoding?: BufferEncoding, options?: {
-        input?: string | Buffer;
-        inputEncoding?: BufferEncoding;
-        highWaterMark?: number;
-        encoding?: BufferEncoding;
-        objectMode?: boolean;
-        decodeStrings?: boolean;
-        watchPipe?: boolean;
-        readError?: boolean;
-    });
+    constructor(input?: string | Buffer | BufferEncoding | NoFilterOptions, inputEncoding?: BufferEncoding | NoFilterOptions, options?: NoFilterOptions);
     readError: boolean;
     /**
      * @private
@@ -448,5 +460,94 @@ declare class NoFilter extends stream.Transform {
      */
     readBigUInt64BE(): bigint;
 }
+declare namespace NoFilter {
+    export { NoFilterOptions };
+}
 import stream = require("stream");
 import { Buffer } from "buffer";
+type NoFilterOptions = {
+    /**
+     * - Input source data
+     */
+    input?: string | Buffer;
+    /**
+     * - Encoding name for input,
+     * ignored if input is not a String
+     */
+    inputEncoding?: BufferEncoding;
+    /**
+     * - The maximum number of bytes to
+     * store in the internal buffer before ceasing to read from the underlying
+     * resource. Default=16kb, or 16 for objectMode streams
+     */
+    highWaterMark?: number;
+    /**
+     * - If specified, then buffers
+     * will be decoded to strings using the specified encoding
+     */
+    encoding?: BufferEncoding;
+    /**
+     * - Whether this stream should behave
+     * as a stream of objects. Meaning that stream.read(n) returns a single
+     * value instead of a Buffer of size n
+     */
+    objectMode?: boolean;
+    /**
+     * - Whether or not to decode
+     * strings into Buffers before passing them to _write()
+     */
+    decodeStrings?: boolean;
+    /**
+     * - Whether to watch for 'pipe' events,
+     * setting this stream's objectMode based on the objectMode of the input
+     * stream
+     */
+    watchPipe?: boolean;
+    /**
+     * - If true, when a read() underflows,
+     * throw an error.
+     */
+    readError?: boolean;
+    /**
+     * - If set to false, then the
+     * stream will automatically end the writable side when the readable side
+     * ends
+     */
+    allowHalfOpen?: boolean;
+    /**
+     * - Whether this stream should
+     * automatically call .destroy() on itself after ending.
+     */
+    autoDestroy?: boolean;
+    /**
+     * - The default encoding
+     * that is used when no encoding is specified as an argument to
+     * stream.write().
+     */
+    defaultEncoding?: BufferEncoding;
+    /**
+     * - Whether or not the stream should
+     * emit 'close' after it has been destroyed.
+     */
+    emitClose?: boolean;
+    /**
+     * - Sets highWaterMark for the
+     * readable side of the stream. Has no effect if highWaterMark is provided.
+     */
+    readableHighWaterMark?: number;
+    /**
+     * - Sets objectMode for
+     * readable side of the stream. Has no effect if objectMode is true.
+     */
+    readableObjectMode?: boolean;
+    /**
+     * - Sets highWaterMark for the
+     * writable side of the stream. Has no effect if highWaterMark is provided.
+     */
+    writableHighWaterMark?: number;
+    /**
+     * - Sets objectMode for
+     * writable side of the stream. Has no effect if objectMode is true.
+     */
+    writableObjectMode?: boolean;
+};
