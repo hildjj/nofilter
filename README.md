@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/hildjj/nofilter.svg?branch=master)](https://travis-ci.org/hildjj/nofilter)
-[![Coverage Status](https://coveralls.io/repos/hildjj/nofilter/badge.svg?branch=master&service=github)](https://coveralls.io/github/hildjj/nofilter?branch=master)
+[![coverage](https://codecov.io/gh/hildjj/nofilter/branch/master/graph/badge.svg?token=7BdD02c03C)](https://codecov.io/gh/hildjj/nofilter)
 
 # NoFilter
 
