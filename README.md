@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/hildjj/nofilter.svg?branch=main)](https://travis-ci.org/hildjj/nofilter)
+[![Tests](https://github.com/hildjj/nofilter/actions/workflows/node.js.yml/badge.svg)](https://github.com/hildjj/nofilter/actions/workflows/node.js.yml)
 [![coverage](https://codecov.io/gh/hildjj/nofilter/branch/main/graph/badge.svg?token=7BdD02c03C)](https://codecov.io/gh/hildjj/nofilter)
 
 # NoFilter
