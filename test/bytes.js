@@ -55,6 +55,13 @@ describe('When not in object mode', () => {
     return expect(n.length).eql(0)
   })
 
+  it('throws on invalid inputs', () => {
+    expect(() => new NoFilter(1)).to.throw(TypeError)
+    expect(() => new NoFilter(null, 1)).to.throw(TypeError)
+    expect(() => new NoFilter(null, null, null)).to.throw(TypeError)
+    expect(() => new NoFilter(null, null, 1)).to.throw(TypeError)
+  })
+
   it('does delayed decodes', () => {
     const n = new NoFilter({
       decodeStrings: false,
