@@ -7,7 +7,7 @@ const util = require('util')
 describe('When in object mode', () => {
   it('can be created', () => {
     const n = new NoFilter({
-      objectMode: true
+      objectMode: true,
     })
     expect(n._readableState.objectMode).to.be.true
     expect(n._writableState.objectMode).to.be.true
@@ -16,37 +16,37 @@ describe('When in object mode', () => {
   it('allows object writes', () => {
     const n = new NoFilter({ objectMode: true })
     n.write({
-      a: 1
-    })
-    expect(n.slice()).eql([
-      {a: 1}
-    ])
-    n.write({
-      b: 2
+      a: 1,
     })
     expect(n.slice()).eql([
       {a: 1},
-      {b: 2}
+    ])
+    n.write({
+      b: 2,
+    })
+    expect(n.slice()).eql([
+      {a: 1},
+      {b: 2},
     ])
     expect(n.slice(0, 1)).eql([
-      {a: 1}
+      {a: 1},
     ])
   })
 
   it('is transparent for toJSON', () => {
     const n = new NoFilter({
-      objectMode: true
+      objectMode: true,
     })
     n.write({ a: 1 })
     expect(n.toJSON()).eql([
-      {a: 1}
+      {a: 1},
     ])
   })
 
   it('does not fail reading integers', () => {
     const n = new NoFilter({ objectMode: true })
     n.write({
-      a: 1
+      a: 1,
     })
     expect(n.readUInt8()).equals(null)
   })
@@ -54,7 +54,7 @@ describe('When in object mode', () => {
   it('can concat streams', () => {
     const n = Array.from(new Array(5), (v, k) => {
       const nf = new NoFilter({
-        objectMode: true
+        objectMode: true,
       })
       nf.write({a: k})
       nf.write([k])
@@ -70,11 +70,11 @@ describe('When in object mode', () => {
       {a: 3},
       [3],
       {a: 4},
-      [4]
+      [4],
     ])
     expect(NoFilter.concat(n, 2)).eql([
       {a: 0},
-      [0]
+      [0],
     ])
   })
 
@@ -82,7 +82,7 @@ describe('When in object mode', () => {
     const n = new NoFilter({ objectMode: true })
     n.write(1)
     n.write({
-      a: 'foo'
+      a: 'foo',
     })
     expect(util.inspect(n)).equals('NoFilter [1, {"a":"foo"}]')
   })
@@ -95,7 +95,7 @@ describe('When in object mode', () => {
 
   it('fails reading types', () => {
     const nof = new NoFilter({
-      objectMode: true
+      objectMode: true,
     })
     nof.write(1)
     expect(nof.readUInt8()).equals(null)

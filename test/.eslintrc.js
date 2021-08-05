@@ -2,9 +2,9 @@
 
 module.exports = {
   plugins: [
-    'chai-friendly'
+    'chai-friendly',
   ],
   rules: {
-    'chai-friendly/no-unused-expressions': 'error'
-  }
+    'chai-friendly/no-unused-expressions': 'error',
+  },
 }

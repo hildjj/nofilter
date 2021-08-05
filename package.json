@@ -6,7 +6,7 @@
   "types": "types/index.d.ts",
   "scripts": {
     "clean": "rm -rf coverage doc **/.DS_Store",
-    "lint": "eslint . --ext js",
+    "lint": "eslint . --ext js --ext mjs --ext cjs --ext md",
     "coverage": "nyc -r html npm test",
     "test": "mocha test/*.js",
     "doc": "jsdoc -c .jsdoc.conf",
@@ -36,12 +36,14 @@
   },
   "homepage": "https://github.com/hildjj/nofilter#readme",
   "devDependencies": {
-    "@cto.af/eslint-config": "*",
-    "@types/node": "^16.3.2",
+    "@cto.af/eslint-config": "^0.0.8",
+    "@types/node": "^16.4.12",
     "chai": "^4.3",
     "coveralls": "^3.1.1",
-    "eslint": "^7.30.0",
-    "eslint-plugin-chai-friendly": "^0.7.1",
+    "eslint": "^7.32.0",
+    "eslint-plugin-chai-friendly": "^0.7.2",
+    "eslint-plugin-jsdoc": "^36.0.6",
+    "eslint-plugin-markdown": "^2.2.0",
     "eslint-plugin-node": "^11.1.0",
     "jsdoc": "^3.6.7",
     "minami": "^1.2.3",
@@ -49,6 +51,6 @@
     "nyc": "^15.1.0"
   },
   "engines": {
-    "node": ">=12.9"
+    "node": ">=12.19"
   }
 }

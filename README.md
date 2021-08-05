@@ -12,24 +12,25 @@ features, test coverage, etc.
 # Examples
 
 As a data sink:
-```javascript
-const NoFilter = require('nofilter');
+```js
+const NoFilter = require('nofilter')
 // In ES6:
 // import NoFilter from 'nofilter'
 // In typescript:
 // import NoFilter = require('nofilter')
 
-const nf = new NoFilter();
-nf.on('finish', function() {
-  console.log(nf.toString('base64'));
-});
-process.stdin.pipe(nf);
+const nf = new NoFilter()
+nf.on('finish', () => {
+  console.log(nf.toString('base64'))
+})
+process.stdin.pipe(nf)
 ```
 
 As a data source:
-```javascript
-const nf = new NoFilter('010203', 'hex');
-nf.pipe(process.stdout);
+```js
+const NoFilter = require('nofilter')
+const nf = new NoFilter('010203', 'hex')
+nf.pipe(process.stdout)
 ```
 
 Read the [API Docs](http://hildjj.github.io/nofilter/).

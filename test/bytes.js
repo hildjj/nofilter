@@ -3,6 +3,7 @@
 const NoFilter = require('../')
 const { expect } = require('chai')
 const util = require('util')
+const { Buffer } = require('buffer')
 
 describe('When not in object mode', () => {
   it('can be created with no params', () => {
@@ -36,7 +37,7 @@ describe('When not in object mode', () => {
   it('can be created with options', () => {
     let n = new NoFilter({
       input: 'Zm9v',
-      inputEncoding: 'base64'
+      inputEncoding: 'base64',
     })
     expect(n.length).eql(3)
     expect(n.toString()).eql('foo')
@@ -65,7 +66,7 @@ describe('When not in object mode', () => {
   it('does delayed decodes', () => {
     const n = new NoFilter({
       decodeStrings: false,
-      defaultEncoding: 'hex'
+      defaultEncoding: 'hex',
     })
     n.end('010203')
     return expect(n.slice(0, 2)).eql(Buffer.from([1, 2]))
@@ -136,7 +137,7 @@ describe('When not in object mode', () => {
   it('does biginteger read/writes', () => {
     if (typeof BigInt === 'function') {
       const n = new NoFilter()
-      // don't use 1n syntax, for backward-compatibility
+      // Don't use 1n syntax, for backward-compatibility
       n.writeBigInt(BigInt('17123812398091231231231'))
       expect(n.toString('hex')).equals('03a048a28a37b1b6fcff')
       expect(n.readBigInt()).equals(BigInt('17123812398091231231231'))

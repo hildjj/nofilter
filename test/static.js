@@ -3,6 +3,7 @@
 
 const NoFilter = require('../')
 const { expect } = require('chai')
+const { Buffer } = require('buffer')
 
 describe('Static methods', () => {
   it('can be compared', () => {
@@ -20,7 +21,7 @@ describe('Static methods', () => {
     const nf1 = new NoFilter('1')
     const nf2 = new NoFilter('2')
     const nf3 = new NoFilter({
-      objectMode: true
+      objectMode: true,
     })
     expect(NoFilter.concat([nf1, nf2])).eql(Buffer.from('12'))
     expect(NoFilter.concat([])).eql(Buffer.alloc(0))

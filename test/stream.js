@@ -3,14 +3,15 @@
 
 const NoFilter = require('../')
 const { expect } = require('chai')
+const { Buffer } = require('buffer')
 
 describe('When streaming', () => {
   it('listens for pipe events', () => {
     const nf1 = new NoFilter({
-      objectMode: true
+      objectMode: true,
     })
     const nf2 = new NoFilter({
-      objectMode: false
+      objectMode: false,
     })
 
     nf1.pipe(nf2)
@@ -19,11 +20,11 @@ describe('When streaming', () => {
 
   it('does not have to listen for pipe events', () => {
     const nf1 = new NoFilter({
-      objectMode: true
+      objectMode: true,
     })
     const nf2 = new NoFilter({
       objectMode: false,
-      watchPipe: false
+      watchPipe: false,
     })
 
     nf1.pipe(nf2)
@@ -32,10 +33,10 @@ describe('When streaming', () => {
 
   it('does not allow piping after writing', () => {
     const nf1 = new NoFilter({
-      objectMode: true
+      objectMode: true,
     })
     const nf2 = new NoFilter({
-      objectMode: false
+      objectMode: false,
     })
     nf2.write('123')
     return expect(() => nf1.pipe(nf2)).to.throw(Error)
