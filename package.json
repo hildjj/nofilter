@@ -9,7 +9,7 @@
     "lint": "eslint . --ext js --ext mjs --ext cjs --ext md",
     "coverage": "nyc -r html npm test",
     "test": "mocha test/*.js",
-    "doc": "jsdoc -c .jsdoc.conf",
+    "docs": "jsdoc -c .jsdoc.conf",
     "release": "npm version patch && git push --follow-tags && npm publish",
     "lcov": "nyc -r lcov npm test"
   },
