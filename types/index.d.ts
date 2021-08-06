@@ -103,9 +103,11 @@ declare class NoFilter extends stream.Transform {
     constructor(input?: string | Buffer | BufferEncoding | NoFilterOptions, inputEncoding?: BufferEncoding | NoFilterOptions, options?: NoFilterOptions);
     readError: boolean;
     /**
+     * @returns {Buffer[]} The current internal buffers.  They are layed out
+     *   end to end.
      * @ignore
      */
-    _bufArray(): any;
+    _bufArray(): Buffer[];
     /**
      * Return a promise fulfilled with the full contents, after the 'finish'
      * event fires.  Errors on the stream cause the promise to be rejected.

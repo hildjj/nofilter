@@ -286,6 +286,8 @@ class NoFilter extends stream.Transform {
   }
 
   /**
+   * @returns {Buffer[]} The current internal buffers.  They are layed out
+   *   end to end.
    * @ignore
    */
   _bufArray() {
