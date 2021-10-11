@@ -1,9 +1,14 @@
 /* eslint-env node, mocha */
 'use strict'
 const NoFilter = require('../')
-const { expect } = require('chai')
+const chai = require('chai')
 const util = require('util')
-const { Buffer } = require('buffer')
+const {Buffer} = require('buffer')
+const chaiAsPromised = require('chai-as-promised')
+const pEvent = require('p-event')
+
+chai.use(chaiAsPromised)
+const {expect} = chai
 
 describe('When not in object mode', () => {
   it('can be created with no params', () => {
@@ -29,7 +34,7 @@ describe('When not in object mode', () => {
     let n = new NoFilter(Buffer.from('010203', 'hex'))
     expect(n.toString('hex')).eql('010203')
 
-    n = new NoFilter(Buffer.from('010203', 'hex'), { objectMode: false })
+    n = new NoFilter(Buffer.from('010203', 'hex'), {objectMode: false})
     expect(n.length).eql(3)
     return expect(n.toString('hex')).eql('010203')
   })
@@ -42,7 +47,7 @@ describe('When not in object mode', () => {
     expect(n.length).eql(3)
     expect(n.toString()).eql('foo')
 
-    n = new NoFilter('Zm9v', { inputEncoding: 'base64' })
+    n = new NoFilter('Zm9v', {inputEncoding: 'base64'})
     expect(n.length).eql(3)
     expect(n.toString()).eql('foo')
 
@@ -168,7 +173,7 @@ describe('When not in object mode', () => {
   it('supports compare', () => {
     const nf1 = new NoFilter('1')
     const nf2 = new NoFilter('2')
-    const nf3 = new NoFilter({ objectMode: true })
+    const nf3 = new NoFilter({objectMode: true})
     expect(nf1.compare(nf2)).equal(-1)
     expect(nf1.compare(nf1)).equal(0)
     expect(nf1.equals(nf2)).equal(false)
@@ -199,13 +204,38 @@ describe('When not in object mode', () => {
 
 describe('Underflow', () => {
   it('When readError is false', () => {
-    const nf = new NoFilter('010203', 'hex', { readError: false })
+    const nf = new NoFilter('010203', 'hex', {readError: false})
     expect(nf.read(4)).to.have.lengthOf(3)
     expect(nf.read(4)).to.be.null
   })
   it('When readError is true', () => {
-    const nf = new NoFilter('010203', 'hex', { readError: true })
+    const nf = new NoFilter('010203', 'hex', {readError: true})
     expect(() => nf.readUInt32BE()).to.throw(Error)
     expect(() => nf.readUInt32BE()).to.throw(Error)
+  })
+})
+
+describe('readFull', () => {
+  it('Does not wait if ready', async() => {
+    const nf = new NoFilter('010203', 'hex')
+    expect(await nf.readFull(2)).eql(Buffer.from([1, 2]))
+  })
+  it('Waits if needed', async() => {
+    const nf = new NoFilter()
+    nf.write(Buffer.from([1, 2, 3]))
+    process.nextTick(() => nf.write(Buffer.from([4, 5])))
+    expect(await nf.readFull(4)).eql(Buffer.from([1, 2, 3, 4]))
+  })
+  it('Detects EOF', async() => {
+    const nf = new NoFilter('')
+    await pEvent(nf, 'finish') // Finish is async, even here
+    await expect(nf.readFull(4)).to.eventually.be.rejectedWith(
+      'Stream finished before 4 bytes were available'
+    )
+
+    const nf2 = new NoFilter('') // Don't wait
+    await expect(nf2.readFull(4)).to.eventually.be.rejectedWith(
+      'Stream finished before 4 bytes were available'
+    )
   })
 })

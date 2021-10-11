@@ -109,6 +109,18 @@ declare class NoFilter extends stream.Transform {
      */
     _bufArray(): Buffer[];
     /**
+     * Read the full number of bytes asked for, no matter how long it takes.
+     * Fail if an error occurs in the meantime, or if the stream finishes before
+     * enough data is available.
+     *
+     * Note: This function won't work fully correctly if you are using
+     * stream-browserify (for example, on the Web).
+     *
+     * @param {number} size The number of bytes to read.
+     * @returns {Promise<string|Buffer>} A promise for the data read.
+     */
+    readFull(size: number): Promise<string | Buffer>;
+    /**
      * Return a promise fulfilled with the full contents, after the 'finish'
      * event fires.  Errors on the stream cause the promise to be rejected.
      *
