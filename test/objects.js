@@ -1,7 +1,7 @@
 /* eslint-env node, mocha */
 'use strict'
 const NoFilter = require('../')
-const { expect } = require('chai')
+const {expect} = require('chai')
 const util = require('util')
 
 describe('When in object mode', () => {
@@ -14,7 +14,7 @@ describe('When in object mode', () => {
   })
 
   it('allows object writes', () => {
-    const n = new NoFilter({ objectMode: true })
+    const n = new NoFilter({objectMode: true})
     n.write({
       a: 1,
     })
@@ -37,14 +37,14 @@ describe('When in object mode', () => {
     const n = new NoFilter({
       objectMode: true,
     })
-    n.write({ a: 1 })
+    n.write({a: 1})
     expect(n.toJSON()).eql([
       {a: 1},
     ])
   })
 
   it('does not fail reading integers', () => {
-    const n = new NoFilter({ objectMode: true })
+    const n = new NoFilter({objectMode: true})
     n.write({
       a: 1,
     })
@@ -79,7 +79,7 @@ describe('When in object mode', () => {
   })
 
   it('supports inspect', () => {
-    const n = new NoFilter({ objectMode: true })
+    const n = new NoFilter({objectMode: true})
     n.write(1)
     n.write({
       a: 'foo',
@@ -88,7 +88,7 @@ describe('When in object mode', () => {
   })
 
   it('supports toString', () => {
-    const n = new NoFilter({ objectMode: true })
+    const n = new NoFilter({objectMode: true})
     n.write(1)
     expect(n.toString()).equals('[1]')
   })

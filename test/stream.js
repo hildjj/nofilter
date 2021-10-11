@@ -2,8 +2,8 @@
 'use strict'
 
 const NoFilter = require('../')
-const { expect } = require('chai')
-const { Buffer } = require('buffer')
+const {expect} = require('chai')
+const {Buffer} = require('buffer')
 
 describe('When streaming', () => {
   it('listens for pipe events', () => {
