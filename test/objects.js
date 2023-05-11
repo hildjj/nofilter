@@ -1,8 +1,7 @@
 /* eslint-env node, mocha */
-'use strict'
-const NoFilter = require('../')
-const {expect} = require('chai')
-const util = require('util')
+import NoFilter from '../lib/index.js'
+import {expect} from 'chai'
+import util from 'util'
 
 describe('When in object mode', () => {
   it('can be created', () => {

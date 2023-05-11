@@ -13,11 +13,7 @@ features, test coverage, etc.
 
 As a data sink:
 ```js
-const NoFilter = require('nofilter')
-// In ES6:
-// import NoFilter from 'nofilter'
-// In typescript:
-// import NoFilter = require('nofilter')
+import NoFilter from 'nofilter'
 
 const nf = new NoFilter()
 nf.on('finish', () => {
@@ -28,7 +24,7 @@ process.stdin.pipe(nf)
 
 As a data source:
 ```js
-const NoFilter = require('nofilter')
+import NoFilter from 'nofilter'
 const nf = new NoFilter('010203', 'hex')
 nf.pipe(process.stdout)
 ```

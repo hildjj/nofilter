@@ -483,7 +483,7 @@ declare class NoFilter extends stream.Transform {
 declare namespace NoFilter {
     export { NoFilterOptions };
 }
-import stream = require("stream");
+import stream from "stream";
 import { Buffer } from "buffer";
 type NoFilterOptions = {
     /**
