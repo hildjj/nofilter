@@ -1,10 +1,11 @@
 /* eslint-env node, mocha */
+
+import {Buffer} from 'buffer'
 import {NoFilter} from '../lib/index.js'
 import chai from 'chai'
-import util from 'util'
-import {Buffer} from 'buffer'
 import chaiAsPromised from 'chai-as-promised'
 import {pEvent} from 'p-event'
+import util from 'util'
 
 chai.use(chaiAsPromised)
 const {expect} = chai
