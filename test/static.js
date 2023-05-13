@@ -1,9 +1,8 @@
 /* eslint-env node, mocha */
-'use strict'
 
-const NoFilter = require('../')
-const {expect} = require('chai')
-const {Buffer} = require('buffer')
+import {NoFilter} from '../lib/index.js'
+import {expect} from 'chai'
+import {Buffer} from 'buffer'
 
 describe('Static methods', () => {
   it('can be compared', () => {

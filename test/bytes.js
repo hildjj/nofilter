@@ -1,11 +1,10 @@
 /* eslint-env node, mocha */
-'use strict'
-const NoFilter = require('../')
-const chai = require('chai')
-const util = require('util')
-const {Buffer} = require('buffer')
-const chaiAsPromised = require('chai-as-promised')
-const pEvent = require('p-event')
+import {NoFilter} from '../lib/index.js'
+import chai from 'chai'
+import util from 'util'
+import {Buffer} from 'buffer'
+import chaiAsPromised from 'chai-as-promised'
+import {pEvent} from 'p-event'
 
 chai.use(chaiAsPromised)
 const {expect} = chai
