@@ -1,7 +1,7 @@
 'use strict'
 
 module.exports = {
-  extends: ['@cto.af', 'plugin:markdown/recommended'],
+  extends: '@cto.af/eslint-config/modules',
   globals: {
     BigInt: false,
     globalThis: false,
