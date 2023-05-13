@@ -52,12 +52,10 @@
     "nyc": "^15.1.0",
     "p-event": "^5.0.1",
     "typedoc": "^0.24.7",
-    "typescript": "^5.0.4"
+    "typescript": "^5.0.4",
+    "c8": "^7.13.0"
   },
   "engines": {
     "node": ">=16"
-  },
-  "dependencies": {
-    "c8": "^7.13.0"
   }
 }
