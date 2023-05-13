@@ -6,11 +6,12 @@
   "type": "module",
   "types": "types/index.d.ts",
   "scripts": {
-    "clean": "rm -rf coverage doc **/.DS_Store",
+    "clean": "rimraf coverage doc **/.DS_Store",
     "lint": "eslint . --ext js",
     "test": "c8 mocha test/*.js",
     "docs": "typedoc lib/index.js",
-    "types": "tsc"
+    "types": "tsc",
+    "build": "npm run clean && npm run types && npm run docs && npm run lint && npm run test"
   },
   "repository": {
     "type": "git",
@@ -37,6 +38,7 @@
   "devDependencies": {
     "@cto.af/eslint-config": "^1.1.2",
     "@types/node": "^20.1.4",
+    "c8": "^7.13.0",
     "chai": "^4.3.7",
     "chai-as-promised": "^7.1.1",
     "eslint": "^8.40.0",
@@ -46,9 +48,9 @@
     "mocha": "^10.2.0",
     "nyc": "^15.1.0",
     "p-event": "^5.0.1",
+    "rimraf": "5.0.0",
     "typedoc": "^0.24.7",
-    "typescript": "^5.0.4",
-    "c8": "^7.13.0"
+    "typescript": "^5.0.4"
   },
   "engines": {
     "node": ">=16"
