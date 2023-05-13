@@ -1,9 +1,8 @@
 /* eslint-env node, mocha */
-'use strict'
 
+import {Buffer} from 'buffer'
 import {NoFilter} from '../lib/index.js'
 import {expect} from 'chai'
-import {Buffer} from 'buffer'
 
 describe('When streaming', () => {
   it('listens for pipe events', () => {

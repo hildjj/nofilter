@@ -1,7 +1,7 @@
 'use strict'
 
 module.exports = {
-  extends: '@cto.af/eslint-config/modules',
+  extends: ['@cto.af/eslint-config/modules', '@cto.af/eslint-config/jsdoc'],
   globals: {
     BigInt: false,
     globalThis: false,
@@ -12,10 +12,5 @@ module.exports = {
   ],
   rules: {
     'no-unused-expressions': 'off',
-    'jsdoc/no-undefined-types': ['error', {
-      definedTypes: [
-        'BufferEncoding',
-      ],
-    }],
   },
 }

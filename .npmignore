@@ -15,3 +15,5 @@ jsconfig.json
 .ncurc.json
 .github/
 tsconfig.json
+.c8rc
+.eslintrc.cjs

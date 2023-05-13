@@ -7,12 +7,9 @@
   "types": "types/index.d.ts",
   "scripts": {
     "clean": "rm -rf coverage doc **/.DS_Store",
-    "lint": "eslint . --ext js,md",
-    "coverage": "nyc -r html npm test",
+    "lint": "eslint . --ext js",
     "test": "c8 mocha test/*.js",
     "docs": "typedoc lib/index.js",
-    "release": "npm version patch && git push --follow-tags && npm publish",
-    "lcov": "nyc -r lcov npm test",
     "types": "tsc"
   },
   "repository": {
@@ -38,15 +35,13 @@
   },
   "homepage": "https://github.com/hildjj/nofilter#readme",
   "devDependencies": {
-    "@cto.af/eslint-config": "^1.1.0",
-    "@types/node": "^20.1.3",
+    "@cto.af/eslint-config": "^1.1.2",
+    "@types/node": "^20.1.4",
     "chai": "^4.3.7",
     "chai-as-promised": "^7.1.1",
-    "coveralls": "^3.1.1",
     "eslint": "^8.40.0",
     "eslint-plugin-chai-friendly": "^0.7.2",
-    "eslint-plugin-jsdoc": "^44.2.2",
-    "eslint-plugin-markdown": "^3.0.0",
+    "eslint-plugin-jsdoc": "^44.2.3",
     "eslint-plugin-node": "^11.1.0",
     "mocha": "^10.2.0",
     "nyc": "^15.1.0",
