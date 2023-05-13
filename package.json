@@ -34,6 +34,13 @@
   "bugs": {
     "url": "https://github.com/hildjj/nofilter/issues"
   },
+  "contributors": [
+    {
+      "name": "Jimmy Wärting",
+      "email": "jimmy@warting.se",
+      "url": "https://jimmy.warting.se"
+    }
+  ],
   "homepage": "https://github.com/hildjj/nofilter#readme",
   "devDependencies": {
     "@cto.af/eslint-config": "^1.1.2",
