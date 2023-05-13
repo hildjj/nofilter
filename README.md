@@ -13,7 +13,7 @@ features, test coverage, etc.
 
 As a data sink:
 ```js
-import NoFilter from 'nofilter'
+import { NoFilter } from 'nofilter'
 
 const nf = new NoFilter()
 nf.on('finish', () => {
@@ -24,7 +24,7 @@ process.stdin.pipe(nf)
 
 As a data source:
 ```js
-import NoFilter from 'nofilter'
+import { NoFilter } from 'nofilter'
 const nf = new NoFilter('010203', 'hex')
 nf.pipe(process.stdout)
 ```

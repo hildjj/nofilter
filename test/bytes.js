@@ -1,5 +1,5 @@
 /* eslint-env node, mocha */
-import NoFilter from '../lib/index.js'
+import {NoFilter} from '../lib/index.js'
 import chai from 'chai'
 import util from 'util'
 import {Buffer} from 'buffer'

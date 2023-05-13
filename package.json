@@ -9,8 +9,8 @@
     "clean": "rm -rf coverage doc **/.DS_Store",
     "lint": "eslint . --ext js,md",
     "coverage": "nyc -r html npm test",
-    "test": "mocha test/*.js",
-    "docs": "npx typedoc lib/index.js",
+    "test": "c8 mocha test/*.js",
+    "docs": "typedoc lib/index.js",
     "release": "npm version patch && git push --follow-tags && npm publish",
     "lcov": "nyc -r lcov npm test",
     "types": "tsc"
@@ -48,7 +48,7 @@
     "eslint-plugin-jsdoc": "^44.2.2",
     "eslint-plugin-markdown": "^3.0.0",
     "eslint-plugin-node": "^11.1.0",
-    "jsdoc": "^4.0.2",
+    "jsdoc": "^3.6.7",
     "minami": "^1.2.3",
     "mocha": "^10.2.0",
     "nyc": "^15.1.0",
@@ -58,5 +58,8 @@
   },
   "engines": {
     "node": ">=16"
+  },
+  "dependencies": {
+    "c8": "^7.13.0"
   }
 }

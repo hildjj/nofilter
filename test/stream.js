@@ -1,7 +1,7 @@
 /* eslint-env node, mocha */
 'use strict'
 
-import NoFilter from '../lib/index.js'
+import {NoFilter} from '../lib/index.js'
 import {expect} from 'chai'
 import {Buffer} from 'buffer'
 
