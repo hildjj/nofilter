@@ -1,7 +1,6 @@
-node_modules
-coverage
 .DS_Store
-man
-TAGS
-.nyc_output/
 .vscode/
+coverage/
+docs/
+node_modules/
+types/

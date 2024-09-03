@@ -13,20 +13,20 @@ features, test coverage, etc.
 
 As a data sink:
 ```js
-import { NoFilter } from 'nofilter'
+import {NoFilter} from 'nofilter';
 
-const nf = new NoFilter()
+const nf = new NoFilter();
 nf.on('finish', () => {
-  console.log(nf.toString('base64'))
-})
-process.stdin.pipe(nf)
+  console.log(nf.toString('base64'));
+});
+process.stdin.pipe(nf);
 ```
 
 As a data source:
 ```js
-import { NoFilter } from 'nofilter'
-const nf = new NoFilter('010203', 'hex')
-nf.pipe(process.stdout)
+import {NoFilter} from 'nofilter';
+const nf = new NoFilter('010203', 'hex');
+nf.pipe(process.stdout);
 ```
 
 Read the [API Docs](http://hildjj.github.io/nofilter/).
