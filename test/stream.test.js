@@ -72,7 +72,7 @@ describe('When streaming', () => {
     return p;
   });
 
-  return it('can generate a rejected promise and a callback', () => {
+  it('can generate a rejected promise and a callback', () => {
     const nf = new NoFilter();
     const p = nf.promise((er, val) => {
       expect(er).instanceof(Error);

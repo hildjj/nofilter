@@ -191,7 +191,7 @@ describe('When not in object mode', () => {
     return expect(nf1.get(0)).equal('1'.charCodeAt(0));
   });
 
-  return it('emits a read event', cb => {
+  it('emits a read event', cb => {
     const nf = new NoFilter('010203', 'hex');
     nf.on('read', buf => {
       expect(buf).eql(Buffer.from([1, 2]));

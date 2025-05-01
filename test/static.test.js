@@ -16,7 +16,7 @@ describe('Static methods', () => {
     return expect(() => NoFilter.compare(nf1, null)).to.throw(TypeError);
   });
 
-  return it('can be concatenated', () => {
+  it('can be concatenated', () => {
     const nf1 = new NoFilter('1');
     const nf2 = new NoFilter('2');
     const nf3 = new NoFilter({
