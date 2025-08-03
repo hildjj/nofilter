@@ -217,19 +217,19 @@ describe('Underflow', () => {
 });
 
 describe('readFull', () => {
-  it('Does not wait if ready', async() => {
+  it('Does not wait if ready', async () => {
     const nf = new NoFilter('010203', 'hex');
     expect(await nf.readFull(2)).eql(Buffer.from([1, 2]));
   });
 
-  it('Waits if needed', async() => {
+  it('Waits if needed', async () => {
     const nf = new NoFilter();
     nf.write(Buffer.from([1, 2, 3]));
     process.nextTick(() => nf.write(Buffer.from([4, 5])));
     expect(await nf.readFull(4)).eql(Buffer.from([1, 2, 3, 4]));
   });
 
-  it('Detects EOF', async() => {
+  it('Detects EOF', async () => {
     const nf = new NoFilter('');
     await pEvent(nf, 'finish'); // Finish is async, even here
     await expect(nf.readFull(4)).to.eventually.be.rejectedWith(
