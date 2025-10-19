@@ -83,4 +83,17 @@ describe('When streaming', () => {
     nf.end();
     return p.then(_v => expect.fail(), er => expect(er).instanceof(Error));
   });
+
+  it('handles AbortSignals', async () => {
+    const ac = new AbortController();
+    const nf = new NoFilter('foo', {signal: ac.signal});
+    ac.abort();
+    await expect(nf.readFull(3)).to.eventually.be.rejectedWith('This operation was aborted');
+
+    const ac2 = new AbortController();
+    const nf2 = new NoFilter({signal: ac2.signal});
+    const p = expect(nf2.readFull(3)).to.eventually.be.rejectedWith('This operation was aborted');
+    ac2.abort();
+    await p;
+  });
 });
