@@ -96,4 +96,18 @@ describe('When streaming', () => {
     ac2.abort();
     await p;
   });
+
+  it('handles reads larger than highWaterMark', async () => {
+    const nf = new NoFilter({highWaterMark: 1024});
+    const p = nf.waitFor(2048);
+    nf.write(Buffer.alloc(1024));
+    nf.write(Buffer.alloc(1024));
+    await p;
+    const b = nf.read(2048);
+    expect(b.length).eq(2048);
+    expect(nf.offset).eq(2048);
+
+    const nf2 = new NoFilter({highWaterMark: 1024, bigReadError: true});
+    expect(nf2.waitFor(2048)).to.eventually.be.rejectedWith('...');
+  });
 });
