@@ -1,6 +1,6 @@
 :root {
     --light-hl-0: #AF00DB;
-    --dark-hl-0: #CE92A4;
+    --dark-hl-0: #C586C0;
     --light-hl-1: #000000;
     --dark-hl-1: #D4D4D4;
     --light-hl-2: #001080;
@@ -15,12 +15,12 @@
     --dark-hl-6: #DCDCAA;
     --light-hl-7: #008000;
     --dark-hl-7: #6A9955;
-    --light-hl-8: #098658;
-    --dark-hl-8: #B5CEA8;
-    --light-hl-9: #000000FF;
-    --dark-hl-9: #D4D4D4;
-    --light-hl-10: #267F99;
-    --dark-hl-10: #4EC9B0;
+    --light-hl-8: #267F99;
+    --dark-hl-8: #4EC9B0;
+    --light-hl-9: #098658;
+    --dark-hl-9: #B5CEA8;
+    --light-hl-10: #000000FF;
+    --dark-hl-10: #D4D4D4;
     --light-hl-11: #EE0000;
     --dark-hl-11: #D7BA7D;
     --light-hl-12: #811F3F;
