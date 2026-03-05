@@ -6,14 +6,14 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
-
 jobs:
   build:
-
-    runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
+        os: [ubuntu-latest]
         node-version: [20, 22, 24, 25]
+    runs-on: ${{ matrix.os }}
     env:
       OS: ${{ matrix.os }}
       NODE: ${{ matrix.node-version }}
