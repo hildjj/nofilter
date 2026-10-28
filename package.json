@@ -1,11 +1,14 @@
 {
   "name": "nofilter",
-  "version": "6.4.1",
+  "version": "7.0.0",
   "description": "Read and write a growable buffer as a stream",
   "main": "lib/index.js",
   "type": "module",
   "types": "types/index.d.ts",
-  "files": ["lib/*", "types/*"],
+  "files": [
+    "lib/*",
+    "types/*"
+  ],
   "scripts": {
     "clean": "rm -rf coverage doc types **/.DS_Store",
     "lint": "eslint .",
