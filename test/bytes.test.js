@@ -1,5 +1,3 @@
-/* eslint-disable mocha/max-top-level-suites */
-
 import * as chai from 'chai';
 import {Buffer} from 'buffer';
 import {NoFilter} from '../lib/index.js';
