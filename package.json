@@ -5,11 +5,12 @@
   "main": "lib/index.js",
   "type": "module",
   "types": "types/index.d.ts",
+  "files": ["lib/*", "types/*"],
   "scripts": {
-    "clean": "rm -rf coverage doc **/.DS_Store",
+    "clean": "rm -rf coverage doc types **/.DS_Store",
     "lint": "eslint .",
     "test": "c8 mocha test/*.js",
-    "docs": "typedoc lib/index.js",
+    "docs": "typedoc",
     "types": "tsc",
     "build": "npm run types && npm run docs && npm run lint && npm run test"
   },
@@ -43,30 +44,25 @@
   ],
   "homepage": "https://github.com/hildjj/nofilter#readme",
   "devDependencies": {
-    "@cto.af/eslint-config": "6.2.5",
-    "@eslint/markdown": "^7.5.1",
-    "@types/node": "^25.5.0",
-    "chai": "^6.2.2",
+    "@cto.af/eslint-config": "7.0.3",
+    "@eslint/markdown": "^8.0.3",
+    "@types/node": "^26.6.5",
+    "@typescript/native": "npm:typescript@^7.0.2",
+    "chai": "^6.3.0",
     "chai-as-promised": "^8.0.2",
-    "eslint": "^10.1.0",
-    "eslint-plugin-chai-friendly": "^1.1.1",
-    "eslint-plugin-jsdoc": "^62.8.0",
-    "eslint-plugin-mocha": "^11.2.0",
-    "mocha": "^11.7.5",
-    "p-event": "^7.1.0",
-    "superc8": "^12.3.1",
-    "typedoc": "^0.28.17",
-    "typescript": "^5.9.3",
-    "typescript-eslint": "^8.57.1"
+    "eslint": "^10.13.0",
+    "eslint-plugin-chai-friendly": "^1.2.1",
+    "eslint-plugin-jsdoc": "^65.4.0",
+    "eslint-plugin-mocha": "^12.0.2",
+    "mocha": "^12.0.3",
+    "p-event": "^8.0.1",
+    "superc8": "^12.7.0",
+    "typedoc": "^0.28.20",
+    "typescript": "npm:@typescript/typescript6@^6.0.2",
+    "typescript-eslint": "^8.72.0"
   },
-  "packageManager": "pnpm@10.32.1",
-  "pnpm": {
-    "overrides": {
-      "mocha@11.7.5>diff": "8.0.3",
-      "mocha@11.7.5>serialize-javascript": "7.0.4"
-    }
-  },
+  "packageManager": "pnpm@12.15.0",
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   }
 }
